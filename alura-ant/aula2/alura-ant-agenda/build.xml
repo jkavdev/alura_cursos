@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="agenda" default="compilar">
+
+	<!-- Deletando pasta build, e criando pastas do fontes a ser gerados -->
+	<target name="limpar">
+		<delete dir="build" />
+		<mkdir dir="build" />
+		<mkdir dir="build/classes" />
+		<mkdir dir="build/classes-teste" />
+	</target>
+
+	<!-- Compilando os fontes do projeto, indicando os jars, local, e dependências do projeto -->
+	<target name="compilar" depends="limpar">
+		<javac destdir="build/classes" srcdir="src">
+			<classpath>
+				<fileset dir="WebContent/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Compilando os fontes de teste do projeto, indicando local de destino, 
+	informando as classes compiladas do projeto necessárias ao teste, dependências para o teste, e do projeto-->
+	<target name="compilar-teste" depends="compilar">
+		<javac destdir="build/classes-teste" srcdir="src-teste">
+			<classpath>
+				<pathelement path="build/classes" />
+
+				<fileset dir="lib-teste">
+					<include name="*.jar" />
+				</fileset>
+
+				<fileset dir="WebContent/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Executando os testes -->
+	<target name="executar-teste" depends="compilar-teste">
+		<!-- Informando resultados dos testes -->
+		<junit showoutput="true" printsummary="true">
+			<!-- Gerando arquivos com informações de cada teste executado -->
+			<formatter type="plain" />
+			<!-- Indicando onde estão os testes e qual arquivos serão incluídos no processo -->
+			<batchtest>
+				<fileset dir="src-teste">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+			<!-- Informando as dependências para a execução dos testes -->
+			<classpath>
+				<pathelement path="build/classes-teste" />
+				<pathelement path="build/classes" />
+
+				<fileset dir="lib-teste">
+					<include name="*.jar" />
+				</fileset>
+
+				<fileset dir="WebContent/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</junit>
+	</target>
+
+</project>
