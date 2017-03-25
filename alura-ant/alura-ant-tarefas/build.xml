@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     25 de mar de 2017 01:42:12                                                        
+
+     alura-ant-tarefas    
+     Projeto demonstrando processo de build com ANT
+                   
+     JKAVDEV                                                                
+     ====================================================================== -->
+<project name="alura-ant-tarefas" default="echo">
+	<description>
+            Projeto demonstrando processo de build com ANT
+    </description>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="echo" depends="depends" description="Projeto demonstrando processo de build com ANT">
+		<echo>Projeto Tarefas</echo>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+	</target>
+
+</project>
