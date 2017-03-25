@@ -1,0 +1,38 @@
+<!-- Processo de build com problemas ao compilar -->
+<!-- Projeto necessita de de jars localizados na pasta lib -->
+<!--
+Buildfile: /workspace/tarefas/build.xml 
+limpar: [delete] Deleting directory /workspace/tarefas/build 
+init: [mkdir] Created dir: /workspace/tarefas/build 
+compilar: [javac] Compiling 3 source files to /workspace/tarefas/build 
+empacotar: [jar] Building jar: /workspace/tarefas/build/treinamento.jar 
+BUILD SUCCESSFUL Total time: 1 second-->
+
+<!-- Realizando conversão de saída do build para o arquivo build -->
+
+<project name="alura-ant-output-to-build" default="empacotar">
+
+	<target name="limpar">
+		<delete dir="build" />
+	</target>
+	
+	<target name="init" depends="limpar">
+		<mkdir dir="build" />
+	</target>
+
+	<target name="compilar" depends="init">
+		<javac srcdir="src" destdir="build">
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="empacotar" depends="compilar">
+		<jar destfile="alura-ant-output-to-build.jar" basedir="build" />
+	</target>
+
+</project>
+
