@@ -1,0 +1,34 @@
+<!-- Indicando nome do projeto e tarefa padrão ao ser rodado o ant -->
+<project name="alura-ant-treinamento" default="empacotar">
+
+	<!-- Definição de uma tarefa com o nome de limpar -->
+	<target name="limpar">
+		<!-- Comando para deletar uma pasta -->
+		<delete dir="build" />
+
+		<!-- Comando para criar uma pasta -->
+		<mkdir dir="build" />
+	</target>
+
+	<!-- depends - Indica que pra ser executado esta tarefa, primeiro será executado
+	a tarefa que ela depender -->
+	<target name="compilar" depends="limpar">
+		<!-- Compilando projeto, indicando caminho dos códigos fontes, e destino dos class -->
+		<javac srcdir="src" destdir="build">
+			<!-- Indicando pasta de dependências do projeto, como jars e etc, 
+			e incluindo elas no processo de build também -->
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Tarefa de empacotamento -->
+	<target name="empacotar" depends="compilar">
+		<!-- Comando para empacator o projeto, indicando o nome do projeto, e local -->
+		<jar destfile="alura-ant-treinamento.jar" basedir="build" />
+	</target>
+
+</project>

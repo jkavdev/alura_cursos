@@ -1,0 +1,50 @@
+<!-- Processo de build com problemas ao compilar -->
+<!-- Projeto necessita de de jars localizados na pasta lib -->
+<!--
+<project name="tarefas" default="empacotar">
+
+	<target name="limpar">
+		<delete dir="build" />
+		<mkdir dir="build" />
+
+	</target>
+
+	<target name="compilar" depends="limpar">
+		<javac srcdir="src" destdir="build">
+		</javac>
+	</target>
+
+	<target name="empacotar" depends="compilar">
+		<jar destfile="build/treinamento.jar" basedir="bin" />
+	</target>
+
+</project>
+-->
+
+<!-- Realizando correção para incluir os jars inclusos na pasta lib -->
+
+<project name="tarefas" default="empacotar">
+
+	<target name="limpar">
+		<delete dir="build" />
+		<mkdir dir="build" />
+
+	</target>
+
+	<target name="compilar" depends="limpar">
+		<javac srcdir="src" destdir="build">
+			<!-- Inclusão de arquivos no build -->
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="empacotar" depends="compilar">
+		<jar destfile="build/treinamento.jar" basedir="bin" />
+	</target>
+
+</project>
+

@@ -1,0 +1,28 @@
+<!--
+<project name="agenda" default="compilar">
+	<target name="compilar">
+		<delete dir="bin" />
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" >
+		</javac>
+	</target>
+</project>
+-->
+	
+<!-- Refatorando build, criando tasks para separadas 
+	para modularizar cada atividade com seu contexto -->
+
+<project name="agenda" default="compilar">
+	<target name="limpar">
+		<delete dir="bin" />
+	</target>
+
+	<target name="iniciar" depends="limpar">
+		<mkdir dir="bin" />
+	</target>
+
+	<target name="compilar" depends="iniciar">
+		<javac srcdir="src" destdir="bin" />
+	</target>
+</project>
+
