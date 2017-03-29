@@ -1,0 +1,25 @@
+<project name="alura-ant-treinamento" default="compilar">
+
+	<taskdef name="olaTarefa" classpathref="lib.path" classname="br.com.jkavdev.alura.ant.task.MensagemTask" />
+
+	<target name="limpar">
+		<delete dir="build" />
+
+		<mkdir dir="build" />
+	</target>
+
+	<path id="lib.path">
+		<fileset dir="/lib" includes="*.jar" />
+	</path>
+
+	<target name="olaTexto">
+		<olaTarefa />
+	</target>
+
+	<target name="compilar" depends="limpar">
+		<javac srcdir="src" destdir="build">
+			<classpath refid="lib.path" />
+		</javac>
+	</target>
+
+</project>
