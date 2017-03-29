@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="agenda" default="compilar">
+
+	<property file="build.properties" />
+	
+	<target name="limpar">
+		<delete dir="${bin.dir}" />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${bin}/${classes}" />
+	</target>
+
+	<target name="compilar" depends="limpar">
+		<javac destdir="${bin}/${classes}" srcdir="source">
+			<classpath>
+				<fileset dir="jars">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+</project>
