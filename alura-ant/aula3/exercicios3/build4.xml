@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="agenda" default="compilar">
+
+	<path id="classpath-libs">
+		<fileset dir="libs">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="classpath-testes">
+		<path refid="classpath-libs" />
+
+		<pathelement path="build/classes" />
+
+		<fileset dir="libs-teste">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compilar" depends="limpar">
+		<javac destdir="build/classes" srcdir="src">
+			<classpath refid="classpath-libs" />
+		</javac>
+	</target>
+
+	<target name="compilar-teste" depends="compilar">
+		<javac destdir="build/classes-teste" srcdir="src-teste">
+			<classpath refid="classpath-testes" />
+		</javac>
+	</target>
+</project>

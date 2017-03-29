@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="agenda" default="compilar">
+	
+	<!-- Importando arquivo com propriedades usadas no BUILD do projeto -->
+	<property file="build.properties" />
+
+	<!-- Utilizando as propriedades importadas pelo arquivo build.properties através de EP -->
+	<target name="limpar">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/${classes.dir}" />
+		<mkdir dir="${build.dir}/${classes.teste.dir}" />
+	</target>
+
+	<!-- Criação de um path, atalho para o classpath da aplicação -->
+	<path id="classpath-compilacao">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Path para a compilação de teste, utilizando o path de compilação -->
+	<path id="classpath-compilacao-teste">
+		<path refid="classpath-compilacao" />
+
+		<pathelement path="${build.dir}/${classes.dir}" />
+
+		<fileset dir="lib-teste">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Path para a execução dos testes, utilizando o path de compilação dos testes-->
+	<path id="classpath-execucao-teste">
+		<path refid="classpath-compilacao-teste" />
+
+		<pathelement path="${build.dir}/${classes.teste.dir}" />
+	</path>
+
+	<target name="compilar" depends="limpar">
+		<javac destdir="${build.dir}/${classes.dir}" srcdir="src">
+			<!-- Utilizando o path criado com pathid -->
+			<classpath refid="classpath-compilacao" />
+		</javac>
+	</target>
+
+	<target name="compilar-teste" depends="compilar">
+		<javac destdir="${build.dir}/${classes.teste.dir}" srcdir="src-teste">
+			<classpath refid="classpath-compilacao-teste" />
+		</javac>
+	</target>
+
+	<target name="executar-teste" depends="compilar-teste">
+		<junit showoutput="true" printsummary="true">
+			<formatter type="plain" />
+			<batchtest>
+				<fileset dir="src-teste">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+			<classpath refid="classpath-execucao-teste" />
+		</junit>
+	</target>
+
+</project>
