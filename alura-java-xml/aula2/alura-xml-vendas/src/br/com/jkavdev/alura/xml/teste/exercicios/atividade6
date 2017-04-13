@@ -1,0 +1,13 @@
+Agora, para poder executar a validação no arquivo XML, 
+precisamos falar qual é o arquivo que descreve a sua estrutura. 
+Adicione o atributo noNamespaceSchemaLocation, falando onde está o arquivo de validação 
+e o xmlns com o valor http://www.w3.org/2001/XMLSchema-instance.
+
+Indicando validador para o xml, indicando qual e seu local
+
+<venda
+	xsi:noNamespaceSchemaLocation="formatoVenda.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	moeda="real">
+	<formaDePagamento>Cartão</formaDePagamento>
+</venda>

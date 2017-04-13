@@ -1,0 +1,9 @@
+Nesse capítulo, vimos que caso o nosso documento XML não esteja no formato que esperamos, o nosso código não funciona! 
+Como resolvemos esse problema? 
+Quais as vantagens dessa solução?
+
+Implementando um validador para o arquivo xml.
+
+Definimos uma estrutura para o arquivo, 
+Geracao de erro de compilação logo ao informar algo inválido
+Evitar erros na aplicação

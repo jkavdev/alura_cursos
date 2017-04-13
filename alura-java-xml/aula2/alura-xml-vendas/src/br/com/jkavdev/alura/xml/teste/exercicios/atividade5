@@ -1,0 +1,28 @@
+Agora que já entendemos para que serve a validação, 
+crie o arquivo XSD que valide o arquivo com a nossa venda, 
+não esqueça que todo elemento que possui filhos deve ser um tipo complexo 
+e elementos que aparecem mais de uma vez devem ter o atributo maxOccurs preenchido.
+
+<!-- Adicionando uma lista de produtos ao elemento, fazendo referencia a produto -->
+	<xsd:element name="venda">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="formaDePagamento" type="xsd:string" />
+				<xsd:element name="produtos">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="produto" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="nome" type="xsd:string" />
+										<xsd:element name="preco" type="xsd:double" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="moeda" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
