@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Representação do XML través de hieraquia -->
+<!-- Uma venda tem uma forma de pagamento, um produto, e um produto tem um nome e um preco -->
+<venda>
+	<formaDePagamento>Cartão</formaDePagamento>
+	<produto>
+		<nome>Livro de XML</nome>
+		<preco>29.00</preco>
+	</produto>
+</venda>
