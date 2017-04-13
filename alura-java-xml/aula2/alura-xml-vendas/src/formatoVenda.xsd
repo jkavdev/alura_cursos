@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-	<!-- Criando formato do xml de vendas -->
-	<!-- Indicamos por um element, informando seu nome -->
-	<!-- Este nao eh um elemento comum, 
-	informamos que ele pode ter uma sequencia de tags com o noome formaDePagamento, informando tambem o tipo desta tag,
-	Informamos tambem seu atributo, no caso moeda e seu tipo -->
+	<!-- Definindo o elemento produto -->
+	<xsd:element name="produto" >
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="nome" type="xsd:string" />
+				<xsd:element name="preco" type="xsd:double" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Adicionando uma lista de produtos ao elemento, fazendo referencia a produto -->
+	<xsd:element name="venda">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="formaDePagamento" type="xsd:string" />
+				<xsd:element name="produtos">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="produto" maxOccurs="unbounded" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="moeda" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
 
-	<element name="venda">
-		<complexType>
-			<sequence>
-				<element name="formaDePagamento" type="string" />
-			</sequence>
-			<attribute name="moeda" type="string" />
-		</complexType>
-	</element>
-</schema>
+</xsd:schema>
