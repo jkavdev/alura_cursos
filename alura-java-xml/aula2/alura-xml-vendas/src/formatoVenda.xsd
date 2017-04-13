@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Criando formato do xml de vendas -->
+	<!-- Indicamos por um element, informando seu nome -->
+	<!-- Este nao eh um elemento comum, 
+	informamos que ele pode ter uma sequencia de tags com o noome formaDePagamento, informando tambem o tipo desta tag,
+	Informamos tambem seu atributo, no caso moeda e seu tipo -->
+
+	<element name="venda">
+		<complexType>
+			<sequence>
+				<element name="formaDePagamento" type="string" />
+			</sequence>
+			<attribute name="moeda" type="string" />
+		</complexType>
+	</element>
+</schema>

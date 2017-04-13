@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Utilizando arquivo formatador, indicando local do mesmo -->
+
+<venda
+	xsi:noNamespaceSchemaLocation="formatoVenda.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	moeda="real">
+	<formaDePagamento>Cartão</formaDePagamento>
+</venda>
