@@ -2,7 +2,10 @@
 
 <!-- Representação do XML través de hieraquia -->
 <!-- Uma venda tem uma forma de pagamento, um produto, e um produto tem um nome e um preco -->
-<venda>
+
+<!-- Podemos adicionar informacoes sobre as tags, um metadados -->
+<!-- Venda - rootElement, ninguem engloba a venda -->
+<venda moeda="real">
 	<formaDePagamento>Cartão</formaDePagamento>
 	<produtos>
 		<produto>
