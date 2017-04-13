@@ -1,4 +1,4 @@
-package br.com.jkavdev.alura.xml.teste;
+package br.com.jkavdev.alura.xml.teste.aula1;
 
 import java.io.IOException;
 
@@ -37,6 +37,9 @@ public class Sistema {
 		String formaDePagamento = item.getTextContent();
 
 		System.out.println(formaDePagamento);
+		
+		Element nome = (Element) document.getElementsByTagName("nome").item(0);
+		System.out.println(nome.getTextContent());
 	}
 
 }

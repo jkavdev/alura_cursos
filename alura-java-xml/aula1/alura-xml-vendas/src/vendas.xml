@@ -4,8 +4,22 @@
 <!-- Uma venda tem uma forma de pagamento, um produto, e um produto tem um nome e um preco -->
 <venda>
 	<formaDePagamento>Cartão</formaDePagamento>
-	<produto>
-		<nome>Livro de XML</nome>
-		<preco>29.00</preco>
-	</produto>
+	<produtos>
+		<produto>
+			<nome>Livro de XML</nome>
+			<preco>29.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Oracle</nome>
+			<preco>219.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Mysql</nome>
+			<preco>129.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Java</nome>
+			<preco>291.00</preco>
+		</produto>
+	</produtos>
 </venda>
