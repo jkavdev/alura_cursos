@@ -1,0 +1,11 @@
+Por enquanto a nossa venda possui apenas a forma de pagamento, mas quem compra, compra algo. Portanto, 
+vamos adicionar um produto à nossa venda. 
+Lembre-se que um produto possui um nome e um preço.
+
+<venda moeda="real">
+	<formaDePagamento>Cartão</formaDePagamento>
+	<produto>
+		<nome>Livro de XML</nome>
+		<preco>29.00</preco>
+	</produto>		
+</venda>

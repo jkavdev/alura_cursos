@@ -1,0 +1,5 @@
+Crie o arquivo XML que representa a nossa venda, que inicialmente s� conter� o dado da forma de pagamento.
+
+<venda>
+	<formaDePagamento>Cartão</formaDePagamento>
+</venda>

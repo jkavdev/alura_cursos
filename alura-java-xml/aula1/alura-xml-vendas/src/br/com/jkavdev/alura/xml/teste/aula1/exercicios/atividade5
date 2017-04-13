@@ -1,0 +1,28 @@
+Nesse capítulo vimos o que são arquivos XML, descreva com as suas palavras qual é a função de um arquivo XML.
+
+É um arquivo que é usado para conter informações, 
+sendo comumente utilizado para trocar informações entre sistemas distintos.
+
+As informações são organizadas de forma hierarquica, tipo: uma venda tem uma forma de pagamento, pode conter
+vários produtos e etc.
+<venda moeda="real">
+	<formaDePagamento>Cartão</formaDePagamento>
+	<produtos>
+		<produto>
+			<nome>Livro de XML</nome>
+			<preco>29.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Oracle</nome>
+			<preco>219.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Mysql</nome>
+			<preco>129.00</preco>
+		</produto>
+		<produto>
+			<nome>Livro de Java</nome>
+			<preco>291.00</preco>
+		</produto>
+	</produtos>
+</venda>

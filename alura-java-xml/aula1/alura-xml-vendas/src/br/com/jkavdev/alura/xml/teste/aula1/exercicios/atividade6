@@ -1,0 +1,8 @@
+Nós aprendemos que XML serve para representar algo, 
+mas qual é a principal vantagem de utilizar arquivos XML para organizar os nossos dados? Em qual situação você usaria?
+
+Principal vantagem é sua representação hierarquica, non qual nos permite representar os dados 
+de uma forma coerente, mostrando correlação entre os dados informados.
+
+Um dos principais usos é quando precisamos integrar sistemas, sem ter que expor o modelo de aplicação para outra,
+sendo assim disponibilizados arquivos xml contendo as informações.
