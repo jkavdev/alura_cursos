@@ -37,8 +37,8 @@ public class LivroBean {
 		livro.adicionaAutor(autor);
 		System.out.println("Autor: " + autor.getNome());
 	}
-	
-	public List<Autor> getAutoresDoLivro(){
+
+	public List<Autor> getAutoresDoLivro() {
 		return this.livro.getAutores();
 	}
 
@@ -50,6 +50,12 @@ public class LivroBean {
 		}
 
 		new DAO<Livro>(Livro.class).adiciona(this.livro);
+
+		this.livro = new Livro();
+	}
+
+	public List<Livro> getLivros() {
+		return new DAO<Livro>(Livro.class).listaTodos();
 	}
 
 }
