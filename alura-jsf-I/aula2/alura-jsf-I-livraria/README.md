@@ -38,5 +38,9 @@ Utilizando função após o bean ser criado
 	public void posCriacao() {
 		System.out.println("objeto LivroBean foi criado");
 	}
+	
+Podemos usar também o actionListener para chamar um função, as diferenças entre o action, é que actionListener é chamado primeiro e o método deve sempre retornar void
+
+	actionListener="#{bean.metodo}"
 
 	
