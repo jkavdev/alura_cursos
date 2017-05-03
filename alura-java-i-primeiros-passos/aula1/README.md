@@ -53,3 +53,14 @@ Executará o programa criado
 
 	java OlaMundo
 
+Exibindo o código gerado pelo compilador que a JVM interpreta
+
+	javap -c OlaMundo.class
+
+A classe que contém o método main deve conter o mesmo nome que o nome do arquivo
+	
+	class OlaMundo{}
+	OlaMundo.java
+
+Ou será lançado um erro informando que não foi possível localizar a classe principal
+
