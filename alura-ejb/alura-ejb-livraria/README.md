@@ -91,3 +91,95 @@ Mas temos que indicar que este é um bean gerenciado pelo EJB
 	@PersistenceContext
 	private EntityManager manager;
 	
+O Controle de transação do jpa é realizado pelo container
+Isto é indicando no persistence.xml
+
+	<jta-data-source>java:/livrariaDS</jta-data-source>
+	
+Toda classe com alguma operação com o banco por padrão é
+
+	@TransactionManagement(TransactionManagementType.CONTAINER) //opcional
+	public class AutorDao {}
+	
+A anotação
+
+	@TransactionManagement(TransactionManagementType.CONTAINER)
+	
+é opcional, apenas indica que o gerenciamento de transação é feito pelo container
+
+Qualquer método que realize algo com o banco por padrão é
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED) //opcional
+	public void salva(Autor autor) {}
+	
+A anotação
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+
+Também é opcional, indica que ao realizar certa operação necessitará de uma transação
+Se não houver cria uma
+
+A anotação
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	
+Indica que a operação necessita de uma transação, e será criada uma transação independentemente se
+já houver uma transação aberta
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	
+Indica que a operação não necessita de uma transação, se houver uma aberta suspende até a finalização execução
+
+	@TransactionAttribute(TransactionAttributeType.MANDATORY)
+	
+Indica que ao realizar a operação, é necessário que já exista uma transação e aberto, se não gera erro
+
+	@TransactionAttribute(TransactionAttributeType.NEVER)
+	
+Indica que não deve ser usado com algum contexto de transação, caso exista alguma transação em aberto, gera erro
+
+Não é comum abrir uma transação no dao, podemos ter uma classe de serviço que faça
+E o dao contendo o mandatory, que indica que ja deve existir uma transação aberta
+
+	@TransactionAttribute(TransactionAttributeType.MANDATORY)
+	public void salva(Autor autor) {}
+	
+E na classe de serviço abrimos uma transação
+
+	@Stateless
+	public class AutorService {
+	
+		@Inject
+		AutorDao autorDao;
+	
+		public void adiciona(Autor autor) {
+			autorDao.salva(autor);
+		}
+	
+		public List<Autor> todosAutores() {
+			return autorDao.todosAutores();
+		}
+	
+	} 
+
+Não precisa indicar com o
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	
+Pois já é padrão de qualquer bean do ejb
+
+E sempre que alguma operação necessite do adicionar, já terá uma transação aberta
+
+Quando precisamos que a transação não seja gerenciada pelo container
+
+Podemos usar
+
+	@TransactionManagement(TransactionManagementType.BEAN)
+	
+Que indica que a transação será gerenciada pelo bean
+Também precisamos de 
+
+	@Inject
+	private UserTransaction tx;
+
+O problema de usar a transação na mão é temos que tratar inúmeras exceptions

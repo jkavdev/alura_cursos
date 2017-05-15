@@ -20,6 +20,7 @@ public class LivroBean {
 
 	@Inject
 	private LivroDao livroDao;
+	
 	@Inject
 	private AutorDao autorDao;
 
