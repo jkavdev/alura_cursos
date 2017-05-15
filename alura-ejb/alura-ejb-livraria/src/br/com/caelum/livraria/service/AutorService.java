@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import br.com.caelum.livraria.bean.LivrariaException;
 import br.com.caelum.livraria.dao.AutorDao;
 import br.com.caelum.livraria.modelo.Autor;
 
@@ -16,8 +17,8 @@ public class AutorService {
 
 	public void adiciona(Autor autor) {
 		autorDao.salva(autor);
-		
-		throw new RuntimeException("Testando rollback");
+
+		throw new LivrariaException("Testando rollback");
 	}
 
 	public List<Autor> todosAutores() {

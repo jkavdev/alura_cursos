@@ -25,13 +25,15 @@ public class AutorDao {
 		System.out.println("AutorDao criado....");
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.MANDATORY)
 	public void salva(Autor autor) {
 		System.out.println("Salvando autor ....");
 
 		manager.persist(autor);
 
 		System.out.println("Autor salvo ....");
+		
+//		throw new RuntimeException("Serviço externo erro");
 	}
 
 	public List<Autor> todosAutores() {

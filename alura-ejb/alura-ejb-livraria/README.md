@@ -221,3 +221,17 @@ O problema de usar a transação na mão é temos que tratar inúmeras exception
 Gerará comportamento não espereado, pois AutorService trabalha com uma transação, 
 quando invocado o AutorDao, o método salva tá coonfigurado para sempre criar uma transação nova
 Não importando se já exista alguma em aberto
+
+*Por padrão, quando lançamos uma exceção de sistema o EJB
+realiza o rollback da transação
+*Mas quando temos uma exceção do tipo de aplicação, o EJB não realiza o rollback
+
+*Exceção de aplicação são geralmente exceções checadas, onde é filha de Exception, sendo assim obrigado a tratar a exceção em tempo de compilação
+*Exceção de sistema são exceções que não-checadas, filhas de RuntimeException, no qual não te obriga a tratar em tempo de compilação
+
+*Como por padrão exceções de aplicação não realizam rollback da transação, podemos alterar este comportamento com 
+
+	@ApplicationException(rollback = true)
+	public class LivrariaException extends RuntimeException {}
+	
+Criamos nossa exceção de aplicação e indicamos que ela também realiza rollback
