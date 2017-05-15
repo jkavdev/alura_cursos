@@ -16,6 +16,8 @@ public class AutorService {
 
 	public void adiciona(Autor autor) {
 		autorDao.salva(autor);
+		
+		throw new RuntimeException("Testando rollback");
 	}
 
 	public List<Autor> todosAutores() {

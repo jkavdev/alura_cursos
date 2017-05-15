@@ -183,3 +183,41 @@ Também precisamos de
 	private UserTransaction tx;
 
 O problema de usar a transação na mão é temos que tratar inúmeras exceptions
+
+#Sobre a atividade 9 da aula 4
+
+	@Stateless
+	public class AutorService {
+	
+		@Inject
+		AutorDao autorDao;
+	
+		public void adiciona(Autor autor) {
+			autorDao.salva(autor);
+			
+			throw new RuntimeException("Testando rollback");
+		}
+	
+		public List<Autor> todosAutores() {
+			return autorDao.todosAutores();
+		}
+	
+	}
+	
+	@Stateless
+	@TransactionManagement(TransactionManagementType.CONTAINER) // opcional
+	public class AutorDao {
+	
+		@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+		public void salva(Autor autor) {
+			System.out.println("Salvando autor ....");
+	
+			manager.persist(autor);
+	
+			System.out.println("Autor salvo ....");
+		}
+	}
+	
+Gerará comportamento não espereado, pois AutorService trabalha com uma transação, 
+quando invocado o AutorDao, o método salva tá coonfigurado para sempre criar uma transação nova
+Não importando se já exista alguma em aberto

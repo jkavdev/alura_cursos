@@ -25,7 +25,7 @@ public class AutorDao {
 		System.out.println("AutorDao criado....");
 	}
 
-	@TransactionAttribute(TransactionAttributeType.MANDATORY)
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void salva(Autor autor) {
 		System.out.println("Salvando autor ....");
 
