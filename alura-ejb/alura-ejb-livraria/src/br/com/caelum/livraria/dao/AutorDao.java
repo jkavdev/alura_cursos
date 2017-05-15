@@ -15,6 +15,7 @@ import br.com.caelum.livraria.modelo.Autor;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER) // opcional
+//@Interceptors({ LogInterceptador.class })
 public class AutorDao {
 
 	@PersistenceContext
@@ -32,8 +33,6 @@ public class AutorDao {
 		manager.persist(autor);
 
 		System.out.println("Autor salvo ....");
-		
-//		throw new RuntimeException("Serviço externo erro");
 	}
 
 	public List<Autor> todosAutores() {

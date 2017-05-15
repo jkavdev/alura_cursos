@@ -235,3 +235,84 @@ realiza o rollback da transação
 	public class LivrariaException extends RuntimeException {}
 	
 Criamos nossa exceção de aplicação e indicamos que ela também realiza rollback
+
+#Interceptadores
+*Para criação de um interceptador, que conta o tempo de execução dos métodos
+
+	public class LogInterceptador {
+
+		@AroundInvoke
+		public Object intercepta(InvocationContext context) throws Exception {
+			long millis = System.currentTimeMillis();
+	
+			Object o = context.proceed();
+	
+			String nomeClasse = context.getTarget().getClass().getSimpleName();
+			String nomeMetodo = context.getMethod().getName();
+	
+			System.out.println(nomeClasse + ", " + nomeMetodo);
+			System.out.println("Tempo gasto, " + ((System.currentTimeMillis()) - millis));
+	
+			return o;
+		}
+	
+	}
+	
+Precisamos que esteje anotado com @AroundInvoke, recebendo InvocationContext context e retornando um objeto
+*Para informar que uma classe utiliza um interceptador 
+
+	//@Interceptors({ LogInterceptador.class })
+	
+Recebe um arrays de interceptadores
+
+Quando temos muitas classes que necessitam de interceptadores, ao invés de declararmos isso na classe explicitamente
+Podemos utilizar um arquivo xml com a configuração de quem usa quem 
+Declaracao do arquivo xml com as definições dos interceptadores e seus utilizadores
+
+	<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+ http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+ version="3.1">
+
+	<!-- Declaração dos interceptadores -->
+		 <interceptors>
+		 	<interceptor>
+		 		<interceptor-class>
+					br.com.caelum.livraria.interceptador.LogInterceptador
+				</interceptor-class>
+		 	</interceptor>
+		 </interceptors>
+		 
+		 <!-- Declaração que todos os ejbs terão como LogInterceptador interceptador -->
+		 <assembly-descriptor>
+			<interceptor-binding>
+				<ejb-name>*</ejb-name>
+				<interceptor-class>
+					br.com.caelum.livraria.interceptador.LogInterceptador
+				</interceptor-class>
+			</interceptor-binding>
+		</assembly-descriptor>
+		
+		
+		 <!-- Declaração que todos os ejbs de AutorDao terão como LogInterceptador interceptador -->
+		 <assembly-descriptor>
+			<interceptor-binding>
+				<ejb-name>AutorDao</ejb-name>
+				<interceptor-class>
+					br.com.caelum.livraria.interceptador.LogInterceptador
+				</interceptor-class>
+			</interceptor-binding>
+		</assembly-descriptor>
+		
+		 <!-- Declaração que todos os ejbs de AutorService terão como LogInterceptador interceptador -->
+		 <assembly-descriptor>
+			<interceptor-binding>
+				<ejb-name>AutorService</ejb-name>
+				<interceptor-class>
+					br.com.caelum.livraria.interceptador.LogInterceptador
+				</interceptor-class>
+			</interceptor-binding>
+		</assembly-descriptor>
+	
+	</ejb-jar>
