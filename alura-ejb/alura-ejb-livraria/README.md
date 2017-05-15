@@ -316,3 +316,123 @@ Declaracao do arquivo xml com as definições dos interceptadores e seus utiliza
 		</assembly-descriptor>
 	
 	</ejb-jar>
+	
+#Webservices
+
+Teremos um serviço que retornará todos os livros cadastros no banco de acordo com um nome
+
+	@WebService
+	@Stateless
+	public class LivrariaWS {
+	
+		@Inject
+		private LivroDao livroDao;
+	
+		@WebResult(name = "autores")
+		public List<Livro> getLivrosPeloNome(@WebParam(name = "titulo") String nome) {
+			System.out.println("Pesquisando livro pelo nome: " + nome);
+	
+			return livroDao.livrosPeloNome(nome);
+		}
+	}
+	
+Esta classe define os serviços que serão disponiblizados
+Com a anotação
+
+	@WebService
+	
+Indicamos ao ejb que este é um serviço a ser registrado no padrão soap e wsdl
+E o ejb utiliza o JAX para publicar os webservices
+
+* uma chamada a uma requisição por padrão é post
+
+	http://localhost:8082/alura-ejb-livraria/LivrariaWS
+	
+Serviço que é disponibilizado
+
+	http://localhost:8082/alura-ejb-livraria/LivrariaWS?wsdl
+	
+Detalhamento do serviço disponibilizado
+
+Mapeamento gerado pelo soap ui, para requisitar os dados disponibilizados pelo webservice
+
+	<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.livraria.caelum.com.br/">
+	   <soapenv:Header/>
+	   <soapenv:Body>
+	      <web:getLivrosPeloNome>
+	         <!--Optional:-->
+	         <titulo>Java</titulo>
+	      </web:getLivrosPeloNome>
+	   </soapenv:Body>
+	</soapenv:Envelope>
+	
+Resultado gerado a partir da requisição
+
+	<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	   <soap:Body>
+	      <ns2:getLivrosPeloNomeResponse xmlns:ns2="http://webservice.livraria.caelum.com.br/">
+	         <autores>
+	            <autor>
+	               <id>1</id>
+	               <nome>Lucas Alves</nome>
+	            </autor>
+	            <id>1</id>
+	            <titulo>Java Web</titulo>
+	         </autores>
+	         <autores>
+	            <autor>
+	               <id>3</id>
+	               <nome>Jhonatan Kolen</nome>
+	            </autor>
+	            <id>3</id>
+	            <titulo>Java Collections</titulo>
+	         </autores>
+	      </ns2:getLivrosPeloNomeResponse>
+	   </soap:Body>
+	</soap:Envelope>
+	
+Estamos dando nome ao retorno do serviço
+
+	@WebResult(name = "autores")
+	
+	<autores>
+    <autor>
+       <id>1</id>
+       <nome>Lucas Alves</nome>
+    </autor>
+    <id>1</id>
+    <titulo>Java Web</titulo>
+ </autores>
+ 
+Estamos alterando o nome do parâmetro
+
+	@WebParam(name = "titulo") String nome
+	
+	<web:getLivrosPeloNome>
+     <titulo>Java</titulo>
+  </web:getLivrosPeloNome>
+  
+Criaremos um projeto cliente que fara consumo dos dados do webservice
+Com o projeto criado bastamos apenas criar um webservice-client com a url?wsld que contém todos os dados do serviço
+
+Temos a classe de test do serviço
+
+	public class TestRequestSoapComJava {
+		public static void main(String[] args) throws RemoteException {
+			LivrariaWS cliente = new LivrariaWSProxy();
+			Livro[] livros = cliente.getLivrosPeloNome("Java");
+			
+			for (Livro livro : livros) {
+				System.out.println("titulo: " + livro.getTitulo() + ", autor: " + livro.getAutor().getNome());
+			}
+		}
+	}
+	
+O tipo que sabe se conectar ao webservice é o proxy
+
+	LivrariaWS cliente = new LivrariaWSProxy();
+	
+E partir da interface temos todos os serviços disponibilizados pelo webservice
+	
+
+		

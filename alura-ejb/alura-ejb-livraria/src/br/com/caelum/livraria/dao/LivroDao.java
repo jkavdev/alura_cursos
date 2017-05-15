@@ -22,7 +22,7 @@ public class LivroDao {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
+
 	private UserTransaction tx;
 
 	public void salva(Livro livro) {
@@ -30,13 +30,20 @@ public class LivroDao {
 			tx.begin();
 			manager.persist(livro);
 			tx.commit();
-		} catch (NotSupportedException | SystemException | SecurityException | IllegalStateException | RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
+		} catch (NotSupportedException | SystemException | SecurityException | IllegalStateException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public List<Livro> todosLivros() {
 		return manager.createQuery("select l from Livro l", Livro.class).getResultList();
+	}
+
+	public List<Livro> livrosPeloNome(String nome) {
+		return manager.createQuery("select l from Livro l where l.titulo like :titulo", Livro.class)
+				.setParameter("titulo", "%" + nome + "%")
+				.getResultList();
 	}
 
 }
