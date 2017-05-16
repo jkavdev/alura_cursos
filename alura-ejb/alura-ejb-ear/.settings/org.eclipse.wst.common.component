@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="alura-ejb-ear">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="alura-ejb-livraria.war" deploy-path="/" handle="module:/resource/alura-ejb-livraria/alura-ejb-livraria">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="alura-ejb-timerservice.jar" deploy-path="/" handle="module:/resource/alura-ejb-timerservice/alura-ejb-timerservice">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

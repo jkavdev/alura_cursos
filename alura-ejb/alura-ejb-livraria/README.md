@@ -434,5 +434,34 @@ O tipo que sabe se conectar ao webservice é o proxy
 	
 E partir da interface temos todos os serviços disponibilizados pelo webservice
 	
+#Agendamento
 
+Agendamentos geralmente são realizados fora da aplicação para isso criamos um projeto aparte
+para testar o agendamento
+*Criar um projeto ejb, para realizar o agendamento
+*Criaremos a classe agendamento que conterá a definição do agendamento
+
+	@Singleton
+	@Startup
+	public class Agendador {
+		@Schedule(hour="*", minute="*", second="*/10", persistent=false)
+		void agendado(){
+			System.out.println("Verificando recurso externo......");
+		}
+	}
 		
+*Exitirá apenas uma instância do agendamento, será iniciado ao subir a aplicação pelo servidor
+*Criamos um método com as tarefas do agendamento no caso apenas um syso, para teste
+*O método deverá estar anotado com Schedule, definindo seu horário de execução
+
+	@Schedule(hour="*", minute="*", second="*/10", persistent=false)
+	
+*Indicamos que será gerado toda hora, a todo minuto, e a cada 10 segundos
+*Por padrão o servidor é obrigado a guardar o estado o agendamento, no caso persistir os dados do agendamento
+*Alteramos para não realizar tal feature, apenas para teste
+
+	persistent=false
+	
+*Podemos agrupar o agendador com ejb livraria, com o empacotamento EAR
+*Bastando apenas crar um projeto ear, incluindo os projeto mencionados anteriormente no novo projeto ear.
+*Ao invés de publicar os projetos separados no servidor, publicamos o ear, que contém toda à aplicação
