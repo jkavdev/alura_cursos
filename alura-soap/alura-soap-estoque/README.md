@@ -119,3 +119,10 @@ Usamos a anotações para deixar o xml mais expressivo
 	
 * `@XmlAccessorType(XmlAccessType.FIELD)` estamos definindo que o xml fará acesso pelo atributo em sí, sem necessidade dos get e set
 * `@XmlElement(name = "item")` indicamos que cada item da lista, será um elemento com o nome de `item`
+
+* `@WebMethod(exclude=true)` podemos selecionar os métodos disponibilizados pelo serviço
+
+	@WebMethod(exclude=true)
+	public void outroMetodo() { 
+	    //nao vai fazer parte do WSDL
+	}

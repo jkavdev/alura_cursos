@@ -20,4 +20,9 @@ public class EstoqueWS {
 		return new ListaItens(itemDao.todosItens());
 	}
 
+	@WebMethod(exclude = true)
+	public void naoDisponibilizado() {
+		// nao vai fazer parte do WSDL
+	}
+
 }
