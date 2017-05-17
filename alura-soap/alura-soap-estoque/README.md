@@ -74,3 +74,48 @@ O WSDL é o xml descritivo do serviço disponibilizado, contendo todas as inform
 * `EstoqueWS service = new EstoqueWS();` precisamos do serviço
 * `String url = "http://localhost:8080/estoquews";` caminho para acessar o serviço
 * `Endpoint.publish(url, service);` disponibilizando o serviço
+
+<h1>Os métodos Java se tornam operations no WSDL</h1>
+
+Os métodos criados são transformados para operations no wsdl, nas operations contém toda a definição a entrada, saída de dados que aquele método irá produzir
+
+<h1>As operations fazem parte do portType</h1>
+
+`portType` é o próprio webservice, com toda a definição de suas operações
+
+<h1>As anotações do JAX-WS servem para personalizar o WSDL</h1>
+
+Usamos a anotações para deixar o xml mais expressivo
+
+`@WebMethod(operationName = "todosOsItens")` definimos o nome da operação a ser requisitada pelo cliente
+
+`@WebResult(name = "itens")`, definindo o nome do resultado
+
+<h1>A especificação JAX-B gera o XML por baixo dos panos</h1>
+
+ JAX-B é a api responsável por tratar e realizar o parse do java para xml, e virce-versa
+ 
+ * Providenciamos uma classe que retorna uma lista de itens, alterando a exibição no xml
+
+	@XmlRootElement
+	@XmlAccessorType(XmlAccessType.FIELD)
+	public class ListaItens {
+	
+		@XmlElement(name = "item")
+		private List<Item> itens;
+	
+		public ListaItens(List<Item> itens) {
+			this.itens = itens;
+		}
+	
+		ListaItens() {
+		}
+	
+		public List<Item> getItens() {
+			return itens;
+		}
+	
+	}
+	
+* `@XmlAccessorType(XmlAccessType.FIELD)` estamos definindo que o xml fará acesso pelo atributo em sí, sem necessidade dos get e set
+* `@XmlElement(name = "item")` indicamos que cada item da lista, será um elemento com o nome de `item`
