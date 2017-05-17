@@ -126,3 +126,21 @@ Usamos a anotações para deixar o xml mais expressivo
 	public void outroMetodo() { 
 	    //nao vai fazer parte do WSDL
 	}
+	
+# Adicionando filtro para a pesquisa de livros
+
+	@WebMethod(operationName = "todosOsItens")
+	@WebResult(name = "itens")
+	public ListaItens getItens(Filtros filtros) {
+		System.out.println("Chamando getItens.... ");
+
+		List<Filtro> filtro = filtros.getLista();
+		ArrayList<Item> itens = itemDao.todosItens(filtro);
+
+		return new ListaItens(itens);
+	}
+	
+* Recebemos uma lista de filtros de pesquisa or argumento
+* Retiramos os filtros da lista e buscamos os registros de acordo com estes filtos
+
+A classe Filtros é parecida com `Itenslista` onde podemos alterar o mapeamento do xml gerado.
