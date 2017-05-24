@@ -18,3 +18,22 @@
 
 * Temos sempre que nos preocupar aonde estão os arquivos, seus nomes, ou nomes de pastas
 * Temos saber comandos específicos do compilador para gerarmos nossos arquivos
+
+# Build com Maven
+
+* Para gerar um projeto pelo maven
+	
+	mvn archetype:generate -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart -DartifactId=alura-maven-produtos -DgroupId=br.com.jkavdev.alura.maven
+
+* Para compilar um projeto 
+
+	mvn compile
+
+* Para rodar os testes do projeto
+
+	mvn test
+
+* Para limparmos o projeto, deletando todo os arquivos gerados pelo maven
+
+	mvn clean
+
