@@ -62,17 +62,19 @@
     <script src="js/app/models/Negociacao.js"></script>
 
     <script>
-        //Criando objeto já definindo o valor de seus atributos
         var n3 = new Negociacao(new Date(), 5, 700);
-        //Calculando volume, mas estamos expondo um comportamento
-        //de uma negociacao, ideal eh encapsular em Negociacao
-        var volume = n3.quantidade * n3.valor
-        console.log(n3);
-        console.log(volume);
+        //Nao deve ser feito, devido a convensao de condigo com '_'
+        //Informando que este atributo nao deve ser acessado diretamente
+        n3._quantidade = 300;
+        console.log(n3._quantidade);
 
-        //Agora sim, estamos encapsulando o calculo do volume
-        var volume = n3.obtemVolume();
-        console.log(volume);
+        //Agora sim, estamos tendo acesso a variavel de uma forma
+        //correta, de acordo com a classe
+        console.log(n3.getQuantidade());
+        console.log(n3.getVolume());
+        console.log(n3.getData());
+        console.log(n3.getValor());
+
 
     </script>
 

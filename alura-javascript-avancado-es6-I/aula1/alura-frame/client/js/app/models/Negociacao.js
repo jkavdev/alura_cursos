@@ -1,18 +1,20 @@
-//Classe que representara as regras de negocio da Negociacao
 class Negociacao {
 
-    //Recebendo dados pelo construtor
+    //_variavel - indica que a variavel somente eh acessivel
+    //dentro dos proprios metodos da classe
+    //Convensao de codigo para indicar o nao acesso a variavel
+
     constructor(data, quantidade, valor) {
-        this.quantidade = quantidade;
-        this.data = data;
-        this.valor = valor;
+        this._quantidade = quantidade;
+        this._data = data;
+        this._valor = valor;
     }
 
-    //Metodo - Comportamento de uma classe
-    //Funcao - Comportamento fora de uma classe, nao pertence a uma classe
-
-    //Metodo que retorna o calculo do volume
-    obtemVolume(){
-        return this.quantidade * this.valor;
+    getVolume(){
+        return this._quantidade * this._valor;
     }
+
+    getData(){ return this._data }
+    getQuantidade(){ return this._quantidade }
+    getValor(){ return this._valor }
 }
