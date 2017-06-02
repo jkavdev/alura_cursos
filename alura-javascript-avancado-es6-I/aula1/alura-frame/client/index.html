@@ -63,18 +63,15 @@
 
     <script>
         var n3 = new Negociacao(new Date(), 5, 700);
-        //Nao deve ser feito, devido a convensao de condigo com '_'
-        //Informando que este atributo nao deve ser acessado diretamente
-        n3._quantidade = 300;
-        console.log(n3._quantidade);
 
-        //Agora sim, estamos tendo acesso a variavel de uma forma
-        //correta, de acordo com a classe
-        console.log(n3.getQuantidade());
-        console.log(n3.getVolume());
-        console.log(n3.getData());
-        console.log(n3.getValor());
+        n3._quantidade = 3;
+        console.log(n3.quantidade);
 
+        //Meio que tirando metodos de rescrita das propriedades de negociacao
+        Object.freeze(n3);
+
+        n3._quantidade = 3;
+        console.log(n3.quantidade);
 
     </script>
 
