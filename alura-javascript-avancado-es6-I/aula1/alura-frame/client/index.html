@@ -64,14 +64,17 @@
     <script>
         var n3 = new Negociacao(new Date(), 5, 700);
 
-        n3._quantidade = 3;
+        //Utilizando os metodos get criados em Negociacao
+        //Temos acesso a metodos get como se fosse por variavel
         console.log(n3.quantidade);
+        console.log(n3.volume);
+        console.log(n3.data);
+        console.log(n3.valor);
 
-        //Meio que tirando metodos de rescrita das propriedades de negociacao
-        Object.freeze(n3);
+        //Nao podemos atribuir um valor para o metodo get
+        n3.valor = 5000;
+        console.log(n3.valor);
 
-        n3._quantidade = 3;
-        console.log(n3.quantidade);
 
     </script>
 
