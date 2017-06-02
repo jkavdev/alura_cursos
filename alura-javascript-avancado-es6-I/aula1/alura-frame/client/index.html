@@ -62,20 +62,20 @@
     <script src="js/app/models/Negociacao.js"></script>
 
     <script>
-        var hoje = new Date();
+        for (var i = 0; i < 5; i++) {
+            console.log(i);
+            var flavio = 'Jhonatan';
+            let jhonatan = 'Douglas';
+        }
 
-        //Precisamos reforcar a seguranca tambem no construtor
-        var n3 = new Negociacao(hoje, 5, 700);
-        console.log(n3.data);
+        //utilizando var nao temos escopo de varaveis
+        //Temos acessa a variaveis que nao pertencem ao seu escopo
+        alert(i);
+        alert(flavio);
 
-        //Altera a data pois estamos referenciando o mesmo objeto
-        hoje.setDate(15);
-
-        //Estamos apenas alterando a copia fornecida pela classe
-        var data = n3.data.setDate(11);
-        console.log(n3.data);
-        console.log(data);
-
+        //Ao se utilizar let, temos a funcionalidade de escopo
+        //O que garante mais estabilidade ao codigo
+        alert(jhonatan);
     </script>
 
 </body>
