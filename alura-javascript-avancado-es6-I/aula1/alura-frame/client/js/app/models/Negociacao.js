@@ -1,13 +1,18 @@
 //Classe que representara as regras de negocio da Negociacao
 class Negociacao {
 
-    //Toda classe deve ter um construtor
-    //E eh dentro dele que criamos as variaveis da classe
-    //Utilizamos a classe date já disponibilizado pelo js, retorna data atual
-    //Com this, estamos informando que se referencia a instancia atual
-    constructor() {
-        this.quantidade = 1;
-        this.data = new Date();
-        this.valor = 0.0;
+    //Recebendo dados pelo construtor
+    constructor(data, quantidade, valor) {
+        this.quantidade = quantidade;
+        this.data = data;
+        this.valor = valor;
+    }
+
+    //Metodo - Comportamento de uma classe
+    //Funcao - Comportamento fora de uma classe, nao pertence a uma classe
+
+    //Metodo que retorna o calculo do volume
+    obtemVolume(){
+        return this.quantidade * this.valor;
     }
 }
