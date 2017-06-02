@@ -63,15 +63,22 @@
 
     <script>
         var n3 = new Negociacao(new Date(), 5, 700);
+        console.log(n3.data);
 
-        n3._quantidade = 3;
-        console.log(n3.quantidade);
+        //Criando objeto com uma data de um dia especifico
+        var amanha = new Date();
+        amanha.setDate(11);
 
-        //Meio que tirando metodos de rescrita das propriedades de negociacao
-        Object.freeze(n3);
+        //Tentando alterar a data da negociacao
+        //Nao dara certo, pois a instancia eh unica
+        n3.data = amanha;
+        console.log(n3.data);
 
-        n3._quantidade = 3;
-        console.log(n3.quantidade);
+        //Alterando o valor direto no objeto
+        //O valor sera alterado pois a instancia de negociacao eh unica
+        //Mas outros tipos complexos, objetos nao sao protegidos
+        n3.data.setDate(11);
+        console.log(n3.data);
 
     </script>
 
