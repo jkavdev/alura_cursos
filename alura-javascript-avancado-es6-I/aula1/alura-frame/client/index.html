@@ -62,23 +62,19 @@
     <script src="js/app/models/Negociacao.js"></script>
 
     <script>
-        var n3 = new Negociacao(new Date(), 5, 700);
+        var hoje = new Date();
+
+        //Precisamos reforcar a seguranca tambem no construtor
+        var n3 = new Negociacao(hoje, 5, 700);
         console.log(n3.data);
 
-        //Criando objeto com uma data de um dia especifico
-        var amanha = new Date();
-        amanha.setDate(11);
+        //Altera a data pois estamos referenciando o mesmo objeto
+        hoje.setDate(15);
 
-        //Tentando alterar a data da negociacao
-        //Nao dara certo, pois a instancia eh unica
-        n3.data = amanha;
+        //Estamos apenas alterando a copia fornecida pela classe
+        var data = n3.data.setDate(11);
         console.log(n3.data);
-
-        //Alterando o valor direto no objeto
-        //O valor sera alterado pois a instancia de negociacao eh unica
-        //Mas outros tipos complexos, objetos nao sao protegidos
-        n3.data.setDate(11);
-        console.log(n3.data);
+        console.log(data);
 
     </script>
 
