@@ -37,6 +37,7 @@ public class TesteDoAvaliador {
 		// indicando os valores que serao a saida do processo da acao realizada
 		double maiorEsperado = 700;
 		double menorEsperado = 200;
+		double mediaEsperado = 466.66;
 		
 		// em geral nao utilizamos sysouts, mas sim bibliotecas especificas para tais testes
 		System.out.println(maiorEsperado == leiloeiro.getMaiorLance());
@@ -46,6 +47,7 @@ public class TesteDoAvaliador {
 		// estaremos indicando que a partir de uma acao eu espera que seja igual a um resultado definido
 		Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.00001);
 		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
+		Assert.assertEquals(mediaEsperado, leiloeiro.getMediaLance(), 0.00001);
 
 	}
 
