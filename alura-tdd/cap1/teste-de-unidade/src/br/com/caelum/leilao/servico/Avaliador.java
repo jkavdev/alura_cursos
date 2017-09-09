@@ -10,19 +10,19 @@ public class Avaliador {
 	//definindo o variavel com maior valor possivel para um double
 	private double menorDeTodos = Double.POSITIVE_INFINITY;
 	
-	private double somaValores = Double.NEGATIVE_INFINITY;
-
-	private double mediaDeTodos = Double.NEGATIVE_INFINITY;
+	private double mediaDeTodos = 0.0;
 	
 	public void avalia(Leilao leilao) {
+		int registros = leilao.getLances().size();
+		double soma = 0.0;
 		for (Lance lance : leilao.getLances()) {
 			if(lance.getValor() > maiorDeTodos) maiorDeTodos = lance.getValor();
 			if(lance.getValor() < menorDeTodos) menorDeTodos  = lance.getValor();
 			
-			somaValores += lance.getValor();
+			soma += lance.getValor();
 		}
 		
-		mediaDeTodos = somaValores / leilao.getLances().size();
+		mediaDeTodos = soma / registros;
 	}
 	
 	public double getMaiorLance() {
@@ -33,7 +33,7 @@ public class Avaliador {
 		return menorDeTodos;
 	}
 	
-	public double getMediaLance() {
+	public double getMediaDosLances() {
 		return mediaDeTodos;
 	}
 }
