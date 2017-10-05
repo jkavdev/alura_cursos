@@ -31,7 +31,7 @@ public class AdminLivrosBean {
 	private List<Integer> autoresId = new ArrayList<>();
 
 	@Transactional
-	public void salvar() {
+	public String salvar() {
 		//cada autor que for escolhido na tela sera atribuido ao livro
 		for (Integer autorId : autoresId) {
 			livro.getAutores().add(new Autor(autorId));
@@ -39,9 +39,10 @@ public class AdminLivrosBean {
 		dao.salvar(livro);
 		System.out.println(livro);
 		
-		//limpando o formulario
-		this.livro = new Livro();
-		this.autoresId = new ArrayList<>();
+		//redirecionando o usuario para a listagem de livros
+		//realizamos o redirect pois, como acabamos de realizar um post, os dados continuam ainda na sessao
+		//ao realizar o redirect, estamos indicando que seja carregado uma tela nova
+		return "/livros/lista?faces-redirect=true";
 	}
 
 	// obtendo lista de autores do banco
