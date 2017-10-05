@@ -37,4 +37,41 @@
 				<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			</properties>
 		</persistence-unit>
-	</persistence>	 
+	</persistence>	
+	
+* Configurando o datasource no servidor Wildfly
+* Dentro do arquivo de configuração do servidor standalone-full.xml, inserir definição do datasource
+	
+	<datasource jndi-name="java:jboss/datasources/ds_casadocodigo" pool-name="dscasadocodigo" enabled="true" use-java-context="true">
+	    <connection-url>jdbc:mysql://localhost:3306/alura_casadocodigo</connection-url>
+	    <driver>mysql</driver>
+	    <pool>
+	        <min-pool-size>10</min-pool-size>
+	        <max-pool-size>20</max-pool-size>
+	    </pool>
+	    <security>
+	        <user-name>jkavdev</user-name>
+	        <password>123456</password>
+	    </security>
+	</datasource>
+	<drivers>
+	    <driver name="h2" module="com.h2database.h2">
+	        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+	    </driver>
+	    <driver name="mysql" module="com.mysql">
+	        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlDataSource</xa-datasource-class>
+	    </driver>
+	</drivers>	 
+
+* Criar também referência para o jar de conexão do mysql
+* criar estrutura jboss_home\modules\system\layers\base\com\mysql\main, module.xml e o jar a ser utilizado
+	
+	<?xml version="1.0" encoding="UTF-8"?>
+	<module xmlns="urn:jboss:module:1.3" name="com.mysql">
+	    <resources>
+	        <resource-root path="mysql-connector-java-5.1.38.jar"/>
+	    </resources>
+	    <dependencies>
+	        <module name="javax.api"/>
+	    </dependencies>
+	</module>	
