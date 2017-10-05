@@ -86,3 +86,14 @@
 		bean-discovery-mode="all"
 		version="1.1">
 	</beans>	
+	
+* Caso haja algum erro com tipos primitivos o JSF fornece convertores de tipos primitivos padrões que podem serem utilizados
+	
+	<div>
+		<h:outputLabel value="Autores" />
+		<h:selectManyListbox value="#{adminLivrosBean.autoresId}"
+			converter="javax.faces.Integer">
+			<f:selectItems value="#{adminLivrosBean.autores}"
+				var="autor" itemValue="#{autor.id}" itemLabel="#{autor.nome}"/>
+		</h:selectManyListbox>
+	</div>	
