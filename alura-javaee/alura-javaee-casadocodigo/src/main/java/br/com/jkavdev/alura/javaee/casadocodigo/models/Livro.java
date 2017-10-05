@@ -2,10 +2,25 @@ package br.com.jkavdev.alura.javaee.casadocodigo.models;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+
+//Mapeando para uma entidade 
+@Entity
 public class Livro {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
 	private String titulo;
+
+	//Para dados muitos grandes
+	@Lob
 	private String descricao;
+	
 	private BigDecimal preco;
 	private Integer numeroPaginas;
 
@@ -43,8 +58,7 @@ public class Livro {
 
 	@Override
 	public String toString() {
-		return "Livro [titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco + ", numeroPaginas="
-				+ numeroPaginas + "]";
+		return "Livro [titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco + ", numeroPaginas=" + numeroPaginas + "]";
 	}
 
 }
