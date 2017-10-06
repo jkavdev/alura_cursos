@@ -1,4 +1,4 @@
-package br.com.jkavdev.alura.javaee.casadocodigo.beans;
+package br.com.jkavdev.alura.javaee.casadocodigo.conf;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;

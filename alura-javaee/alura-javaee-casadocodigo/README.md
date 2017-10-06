@@ -126,4 +126,19 @@
 	Criar arquivo ValidationMessages.properties no classpath da aplicação
 	javax.validation.constraints.Min.message             = deve ser maior que ou igual a {value}!
 	javax.validation.constraints.DecimalMin.message      = deve ser maior que ${inclusive == true ? 'ou igual a ' : ''}{value}!
-	org.hibernate.validator.constraints.Length.message   = tamanho deve ser maior que {min}				
+	org.hibernate.validator.constraints.Length.message   = tamanho deve ser maior que {min}			
+	
+* Adicionando uma campo do tipo data
+
+	Precisamos de um converter pra pegar o valor da tela e converter em um caledar
+	O jsf contem um converter para tipos de data
+	Mas como o nosso atributo eh um calendar, temos que obter o tipo date deste calendar
+	Com o conversor indicamos como sera feita a conversao da pagina para um calendar
+	<div>
+		<h:outputLabel value="Data de publicação" />
+		<h:inputText value="#{adminLivrosBean.livro.dataPublicao.time}"
+			required="true" id="dataPublicacao">
+			<f:convertDateTime pattern="dd/MM/yyyy"/>
+		</h:inputText>
+			<h:message for="dataPublicacao"/>
+	</div>		

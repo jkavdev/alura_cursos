@@ -2,6 +2,7 @@ package br.com.jkavdev.alura.javaee.casadocodigo.models;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -51,6 +54,12 @@ public class Livro {
 	//livro tem varios autores
 	@ManyToMany
 	private List<Autor> autores = new ArrayList<>();
+	
+	//Como o jsf converte o valor da tela para um calendar
+	//o jsf necessita que este campo esta instanciado devido a conversa
+	//por isso estamos instanciando aqui
+	@Temporal(TemporalType.DATE)
+	public Calendar dataPublicao = Calendar.getInstance();
 
 	public String getTitulo() {
 		return titulo;
@@ -86,6 +95,14 @@ public class Livro {
 
 	public List<Autor> getAutores() {
 		return autores;
+	}
+	
+	public Calendar getDataPublicao() {
+		return dataPublicao;
+	}
+	
+	public void setDataPublicao(Calendar dataPublicao) {
+		this.dataPublicao = dataPublicao;
 	}
 
 	@Override
