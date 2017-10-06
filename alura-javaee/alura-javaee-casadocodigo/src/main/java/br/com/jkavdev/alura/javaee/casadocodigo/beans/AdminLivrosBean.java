@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -37,7 +39,19 @@ public class AdminLivrosBean {
 			livro.getAutores().add(new Autor(autorId));
 		}
 		dao.salvar(livro);
-		System.out.println(livro);
+		
+		//Como iremos utilizar uma mensagem que precisara estar visivel para um proximo request
+		//configuramos um contexto externo, possibilite isso
+		//No caso o Flash eh um escopo que mantem dados entre request
+		//Todo framework mvc contem uma implementacao do flash 
+		//Aqui estamos indicando que ele mantera as mensagens entre os requests, produzido
+		//por este metodo 
+		FacesContext.getCurrentInstance().getExternalContext()
+			.getFlash().setKeepMessages(true);
+
+		//criando mensagem que sera exibida na tela de listagem de livros
+		FacesContext.getCurrentInstance()
+			.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
 		
 		//redirecionando o usuario para a listagem de livros
 		//realizamos o redirect pois, como acabamos de realizar um post, os dados continuam ainda na sessao

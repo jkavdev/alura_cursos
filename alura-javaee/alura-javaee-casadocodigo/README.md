@@ -97,3 +97,13 @@
 				var="autor" itemValue="#{autor.id}" itemLabel="#{autor.nome}"/>
 		</h:selectManyListbox>
 	</div>	
+	
+* Mantendo mensagens produzidas em requests diferentes visíveis
+	
+	//Mantendo a mensagem entre os requests, indicando o escopo de flash
+	FacesContext.getCurrentInstance().getExternalContext()
+			.getFlash().setKeepMessages(true);
+
+	//criando mensagem que sera exibida na tela de listagem de livros
+	FacesContext.getCurrentInstance()
+		.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));	
