@@ -1,6 +1,5 @@
 package br.com.jkavdev.alura.javaee.casadocodigo.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -35,15 +34,10 @@ public class AdminLivrosBean {
 	@Inject
 	private FacesContext context;
 	
-	// teremos uma lista de ids dos autores
-	private List<Integer> autoresId = new ArrayList<>();
-
 	@Transactional
 	public String salvar() {
-		//cada autor que for escolhido na tela sera atribuido ao livro
-		for (Integer autorId : autoresId) {
-			livro.getAutores().add(new Autor(autorId));
-		}
+		//Como temos o converter do autor, nao necessitamos mais da instanciacao dos objetos
+		//autores aqui
 		dao.salvar(livro);
 		
 		//Como iremos utilizar uma mensagem que precisara estar visivel para um proximo request
@@ -75,14 +69,6 @@ public class AdminLivrosBean {
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
-	}
-
-	public List<Integer> getAutoresId() {
-		return autoresId;
-	}
-
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
 	}
 
 }

@@ -50,7 +50,7 @@ public class Livro {
 
 	//validacao para autores, tem que selecionar pelo meno um autor
 	@NotNull
-	@Size(min = 1)
+	@Size(min = 1, message = "selecione ao menos um autor")
 	//livro tem varios autores
 	@ManyToMany
 	private List<Autor> autores = new ArrayList<>();
@@ -92,6 +92,10 @@ public class Livro {
 
 	public List<Autor> getAutores() {
 		return autores;
+	}
+	
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
 	}
 	
 	public Calendar getDataPublicao() {
