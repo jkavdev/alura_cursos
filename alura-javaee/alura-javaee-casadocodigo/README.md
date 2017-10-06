@@ -106,4 +106,18 @@
 
 	//criando mensagem que sera exibida na tela de listagem de livros
 	FacesContext.getCurrentInstance()
-		.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));	
+		.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
+		
+* Redefinindo as mensagens padrões do JSF
+	
+	Criar arquivo jsf_messages.properties com as mensagens no classpath da aplicação
+	javax.faces.component.UIInput.REQUIRED={0}: Campo obrigato\u0301rio
+	javax.faces.converter.IntegerConverter.INTEGER="{2}" deve ser um número inteiro
+	javax.faces.converter.BigDecimalConverter.DECIMAL="{2}" deve ser um valor separado apenas por um "."
+	
+	Indicar ao jsf para que busque pelo arquivo de mensagens
+	Alterar em faces-config.xml
+	<application>
+		<message-bundle>jsf_messages</message-bundle>
+	</application>	
+				

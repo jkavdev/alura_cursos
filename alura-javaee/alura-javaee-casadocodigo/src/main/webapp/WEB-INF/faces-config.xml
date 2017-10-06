@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"/>
+<faces-config 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	version="2.1" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	
+	<!-- Indicando bundle de mensagens redefinidas para à aplicacao -->
+	<!-- Como o JSF ja olha classpath pela definicao do arquivo
+		e o classpath da aplicacao fica em resources
+		precisamos apenas indicar o nome do arquivo, sem indicar o caminho completo ate ele -->
+	<application>
+		<message-bundle>jsf_messages</message-bundle>
+	</application>	
+	
+</faces-config>	
