@@ -29,6 +29,12 @@ public class AdminLivrosBean {
 	@Inject
 	private AutorDao autorDao;
 	
+	//Como ainda nao existe integracao ainda com jsf e cdi para que o cdi
+	//consiga nos fornece uma instancia do contexto do jsf
+	//podemos indicar para o cdi como criar uma instancia do contexto do jsf
+	@Inject
+	private FacesContext context;
+	
 	// teremos uma lista de ids dos autores
 	private List<Integer> autoresId = new ArrayList<>();
 
@@ -46,12 +52,11 @@ public class AdminLivrosBean {
 		//Todo framework mvc contem uma implementacao do flash 
 		//Aqui estamos indicando que ele mantera as mensagens entre os requests, produzido
 		//por este metodo 
-		FacesContext.getCurrentInstance().getExternalContext()
+		context.getExternalContext()
 			.getFlash().setKeepMessages(true);
 
 		//criando mensagem que sera exibida na tela de listagem de livros
-		FacesContext.getCurrentInstance()
-			.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
+		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
 		
 		//redirecionando o usuario para a listagem de livros
 		//realizamos o redirect pois, como acabamos de realizar um post, os dados continuam ainda na sessao
