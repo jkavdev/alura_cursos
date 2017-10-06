@@ -55,11 +55,8 @@ public class Livro {
 	@ManyToMany
 	private List<Autor> autores = new ArrayList<>();
 	
-	//Como o jsf converte o valor da tela para um calendar
-	//o jsf necessita que este campo esta instanciado devido a conversa
-	//por isso estamos instanciando aqui
 	@Temporal(TemporalType.DATE)
-	public Calendar dataPublicao = Calendar.getInstance();
+	public Calendar dataPublicao;
 
 	public String getTitulo() {
 		return titulo;

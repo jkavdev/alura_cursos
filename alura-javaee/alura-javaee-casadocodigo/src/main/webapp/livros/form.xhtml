@@ -9,25 +9,25 @@
 			<h:outputLabel value="Título" />
 			<h:inputText value="#{adminLivrosBean.livro.titulo}"
 				required="true" id="titulo"/>
-				<h:message for="titulo"/>
+			<h:message for="titulo"/>
 		</div>
 		<div>
 			<h:outputLabel value="Descrição" />
 			<h:inputTextarea rows="4" cols="20" value="#{adminLivrosBean.livro.descricao}"
 				required="true" id="descricao"/>
-				<h:message for="descricao"/>
+			<h:message for="descricao"/>
 		</div>
 		<div>
 			<h:outputLabel value="Número de páginas" />
 			<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}"
 				required="true" id="numeroPaginas"/>
-				<h:message for="numeroPaginas"/>
+			<h:message for="numeroPaginas"/>
 		</div>
 		<div>
 			<h:outputLabel value="Preço" />
 			<h:inputText value="#{adminLivrosBean.livro.preco}"
 				required="true" id="preco"/>
-				<h:message for="preco"/>
+			<h:message for="preco"/>
 		</div>
 		<div>
 			<h:outputLabel value="Autores" />
@@ -35,16 +35,14 @@
 				converter="javax.faces.Integer" id="autores">
 				<f:selectItems value="#{adminLivrosBean.autores}"
 					var="autor" itemValue="#{autor.id}" itemLabel="#{autor.nome}"/>
-				<h:message for="autores"/>					
+			<h:message for="autores"/>					
 			</h:selectManyListbox>
 		</div>
 		<div>
 			<h:outputLabel value="Data de publicação" />
-			<h:inputText value="#{adminLivrosBean.livro.dataPublicao.time}"
-				required="true" id="dataPublicacao">
-				<f:convertDateTime pattern="dd/MM/yyyy"/>
-			</h:inputText>
-				<h:message for="dataPublicacao"/>
+			<h:inputText value="#{adminLivrosBean.livro.dataPublicao}"
+				required="true" id="dataPublicacao" />
+			<h:message for="dataPublicacao"/>
 		</div>
 		<h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar}"/>
 	</h:form>   
