@@ -120,4 +120,10 @@
 	<application>
 		<message-bundle>jsf_messages</message-bundle>
 	</application>	
-				
+
+* Redefinindo as mensagens padrões do Bean Validation
+
+	Criar arquivo ValidationMessages.properties no classpath da aplicação
+	javax.validation.constraints.Min.message             = deve ser maior que ou igual a {value}!
+	javax.validation.constraints.DecimalMin.message      = deve ser maior que ${inclusive == true ? 'ou igual a ' : ''}{value}!
+	org.hibernate.validator.constraints.Length.message   = tamanho deve ser maior que {min}				
