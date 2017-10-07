@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 
 import br.com.jkavdev.alura.javaee.casadocodigo.daos.AutorDao;
 import br.com.jkavdev.alura.javaee.casadocodigo.daos.LivroDao;
+import br.com.jkavdev.alura.javaee.casadocodigo.infra.FileSaver;
 import br.com.jkavdev.alura.javaee.casadocodigo.models.Autor;
 import br.com.jkavdev.alura.javaee.casadocodigo.models.Livro;
 
@@ -37,6 +38,7 @@ public class AdminLivrosBean {
 	private FacesContext context;
 	
 	//Podemos utilizar o Part ao inves de utilizar um array de byte byte[]
+	//Recurso do javaee 7
 	private Part capaLivro;
 	
 	@Transactional
@@ -44,10 +46,9 @@ public class AdminLivrosBean {
 		//Como temos o converter do autor, nao necessitamos mais da instanciacao dos objetos
 		//autores aqui
 		dao.salvar(livro);
-		
-		//gravando o conteudo do arquivo no disco
-		//passando o caminho e o nome do arquivo que sera gravado no disco
-		capaLivro.write("/casadocodigo/livros/"+capaLivro.getSubmittedFileName());
+		//Responsavel por salvar a imagem no disco, ou local definido para a imagem
+		FileSaver fileSaver = new FileSaver();
+		livro.setCapaPath(fileSaver.write(capaLivro, "livros"));
 		
 		//Como iremos utilizar uma mensagem que precisara estar visivel para um proximo request
 		//configuramos um contexto externo, possibilite isso

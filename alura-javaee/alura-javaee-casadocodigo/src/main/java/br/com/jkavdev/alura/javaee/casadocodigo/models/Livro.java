@@ -57,6 +57,9 @@ public class Livro {
 	
 	@Temporal(TemporalType.DATE)
 	public Calendar dataPublicacao;
+	
+	//salvaremos apenas o caminho relativo da imagem
+	private String capaPath;
 
 	public String getTitulo() {
 		return titulo;
@@ -104,6 +107,14 @@ public class Livro {
 	
 	public void setDataPublicacao(Calendar dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
+	}
+	
+	public String getCapaPath() {
+		return capaPath;
+	}
+	
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
 	}
 
 	@Override

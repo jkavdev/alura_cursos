@@ -14,7 +14,7 @@ public class AutorConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String autorId) {
-		if (autorId == null || "".equals(autorId)) return null;
+		if (autorId == null || autorId.trim().isEmpty()) return null;
 		
 		//precisamos sempre reescrever o equals e hashCode para o jsf
 		//realizar a comparacao dos objetos da tela e bean
