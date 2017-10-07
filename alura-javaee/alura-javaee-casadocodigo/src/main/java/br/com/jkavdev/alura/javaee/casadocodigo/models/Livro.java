@@ -56,7 +56,7 @@ public class Livro {
 	private List<Autor> autores = new ArrayList<>();
 	
 	@Temporal(TemporalType.DATE)
-	public Calendar dataPublicao;
+	public Calendar dataPublicacao;
 
 	public String getTitulo() {
 		return titulo;
@@ -98,12 +98,12 @@ public class Livro {
 		this.autores = autores;
 	}
 	
-	public Calendar getDataPublicao() {
-		return dataPublicao;
+	public Calendar getDataPublicacao() {
+		return dataPublicacao;
 	}
 	
-	public void setDataPublicao(Calendar dataPublicao) {
-		this.dataPublicao = dataPublicao;
+	public void setDataPublicacao(Calendar dataPublicacao) {
+		this.dataPublicacao = dataPublicacao;
 	}
 
 	@Override
