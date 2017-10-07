@@ -1,5 +1,6 @@
 package br.com.jkavdev.alura.javaee.casadocodigo.beans;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -7,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
 import br.com.jkavdev.alura.javaee.casadocodigo.daos.AutorDao;
@@ -34,11 +36,18 @@ public class AdminLivrosBean {
 	@Inject
 	private FacesContext context;
 	
+	//Podemos utilizar o Part ao inves de utilizar um array de byte byte[]
+	private Part capaLivro;
+	
 	@Transactional
-	public String salvar() {
+	public String salvar() throws IOException {
 		//Como temos o converter do autor, nao necessitamos mais da instanciacao dos objetos
 		//autores aqui
 		dao.salvar(livro);
+		
+		//gravando o conteudo do arquivo no disco
+		//passando o caminho e o nome do arquivo que sera gravado no disco
+		capaLivro.write("/casadocodigo/livros/"+capaLivro.getSubmittedFileName());
 		
 		//Como iremos utilizar uma mensagem que precisara estar visivel para um proximo request
 		//configuramos um contexto externo, possibilite isso
@@ -71,4 +80,12 @@ public class AdminLivrosBean {
 		this.livro = livro;
 	}
 
+	public Part getCapaLivro() {
+		return capaLivro;
+	}
+
+	public void setCapaLivro(Part capaLivro) {
+		this.capaLivro = capaLivro;
+	}
+	
 }
