@@ -27,4 +27,20 @@ public class LivroDao {
 				.getResultList();
 	}
 
+	public List<Livro> ultimosLancamentos() {
+		// buscando os 5 primeiros livros ordenados pelo id
+		String jpql = "select l from Livro l order by l.id desc";
+		return entityManager.createQuery(jpql, Livro.class)
+				.setMaxResults(5)
+				.getResultList();
+	}
+
+	public List<Livro> demaisLivros() {
+		// buscando os livros a partir dos primeiros 5 cinco livros
+		String jpql = "select l from Livro l order by l.id desc";
+		return entityManager.createQuery(jpql, Livro.class)
+				.setFirstResult(6)
+				.getResultList();
+	}
+
 }
