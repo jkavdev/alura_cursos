@@ -43,6 +43,8 @@ public class FileSaver {
 				ByteBuffer buffer = ByteBuffer.allocateDirect(1024 * 10);
 				//e escremos no arquivo de saida os dados do arquivo de entrada
 				while (inputChannel.read(buffer) != -1) {
+					//seta os bytes para zero
+					buffer.flip();
 					outputChannel.write(buffer);
 					buffer.clear();
 				}
