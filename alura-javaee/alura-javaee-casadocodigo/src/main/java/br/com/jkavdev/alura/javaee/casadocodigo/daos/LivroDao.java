@@ -2,16 +2,26 @@ package br.com.jkavdev.alura.javaee.casadocodigo.daos;
 
 import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import br.com.jkavdev.alura.javaee.casadocodigo.models.Livro;
 
+//Para utilizar o contexto EXTENDED do entityManager
+//Temos que dizer que esta classe eh um @Stateful
+//@Stateful indica que esta classe mantera seus dados doinicio ao fim do request
+
+//como ela e gerenciada pelo requestScoped do CDI, ele que cuidara do escopo de vida deste bean
+@Stateful
 public class LivroDao {
 	
 	//Utilizando entityManager do contexto
 	//Fornecido no nosso caso pelo servidor
-	@PersistenceContext
+	
+	//Informando que o entityManager existirar enquanto durar o bean
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager entityManager;
 	
 	public void salvar(Livro livro) {
@@ -46,12 +56,14 @@ public class LivroDao {
 	public Livro buscarPorId(Integer id) {
 		//Resolvendo o problema de lazy exception
 		//ao trazer o livro, traremos os autore tambem
-		String jpql = "select l from Livro l join fetch l.autores "
-				+ "where l.id = :id";
+//		String jpql = "select l from Livro l join fetch l.autores "
+//				+ "where l.id = :id";
 		
-		return entityManager.createQuery(jpql, Livro.class)
-				.setParameter("id", id)
-				.getSingleResult();
+//		return entityManager.createQuery(jpql, Livro.class)
+//				.setParameter("id", id)
+//				.getSingleResult();
+		
+		return entityManager.find(Livro.class, id);
 	}
 
 }
