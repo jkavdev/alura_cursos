@@ -39,12 +39,19 @@ public class LivroDao {
 		// buscando os livros a partir dos primeiros 5 cinco livros
 		String jpql = "select l from Livro l order by l.id desc";
 		return entityManager.createQuery(jpql, Livro.class)
-				.setFirstResult(6)
+				.setFirstResult(5)
 				.getResultList();
 	}
 
 	public Livro buscarPorId(Integer id) {
-		return entityManager.find(Livro.class, id);
+		//Resolvendo o problema de lazy exception
+		//ao trazer o livro, traremos os autore tambem
+		String jpql = "select l from Livro l join fetch l.autores "
+				+ "where l.id = :id";
+		
+		return entityManager.createQuery(jpql, Livro.class)
+				.setParameter("id", id)
+				.getSingleResult();
 	}
 
 }
