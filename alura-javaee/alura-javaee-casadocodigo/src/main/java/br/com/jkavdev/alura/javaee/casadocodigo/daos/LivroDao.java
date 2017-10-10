@@ -43,4 +43,8 @@ public class LivroDao {
 				.getResultList();
 	}
 
+	public Livro buscarPorId(Integer id) {
+		return entityManager.find(Livro.class, id);
+	}
+
 }

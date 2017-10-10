@@ -142,3 +142,11 @@
 		</h:inputText>
 			<h:message for="dataPublicacao"/>
 	</div>		
+	
+* Recebendo o id da requisição e iniciando um método antes de iniciar os dados da tela
+* Recebendo o id do livro que será exibido os detalhes, e carregando seus detalhes
+
+	<f:metadata>
+	    <f:viewParam id="id" name="id" value="#{livroDetalheBean.id}"/>
+	    <f:viewAction action="#{livroDetalheBean.carregaDetalhe()}"/>
+	</f:metadata>	
