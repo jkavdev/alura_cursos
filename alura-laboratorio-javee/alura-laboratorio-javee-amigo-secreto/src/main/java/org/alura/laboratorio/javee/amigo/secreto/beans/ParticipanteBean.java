@@ -22,8 +22,4 @@ public class ParticipanteBean {
 		return participante;
 	}
 
-	public void setParticipante(Participante participante) {
-		this.participante = participante;
-	}
-
 }

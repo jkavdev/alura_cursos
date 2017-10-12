@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/resources/scaffold/pageTemplate.xhtml"
-                xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 	<ui:param name="pageTitle" value="Welcome to Forge" />
 
@@ -12,20 +13,19 @@
 	</ui:define>
 
 	<ui:define name="main">
-		<h2 class="success">
-			Cadastro de participante
-		</h2>
-		
+		<h2 class="success">Cadastro de participante</h2>
+
 		<h:form>
 			<h:panelGrid columns="2">
-				<h:outputText value="Nome: " />
-				<h:inputText value="#{participanteBean.participante.nome}"/>
-				<h:outputText value="Email: " />
-				<h:inputText value="#{participanteBean.participante.email}"/>
-				<h:outputText value="Senha: " />
-				<h:inputSecret value="#{participanteBean.participante.senha}"/>
-				
-				<h:commandButton value="Cadastrar" action="#{participanteBean.cadastrar}"/>
+				<p:outputLabel value="Nome: "/>
+				<p:inputText value="#{participanteBean.participante.nome}" />
+				<p:outputLabel value="Email: "/>
+				<p:inputText value="#{participanteBean.participante.email}" />
+				<p:outputLabel value="Senha: "/>
+				<p:password value="#{participanteBean.participante.senha}" />
+
+				<p:commandButton value="Cadastrar"
+					action="#{participanteBean.cadastrar}" styleClass="btn-primary" />
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
