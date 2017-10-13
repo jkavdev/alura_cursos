@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/resources/scaffold/pageTemplate.xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:param name="pageTitle" value="Welcome to Forge" />
 
@@ -27,7 +28,23 @@
 				<p:commandButton value="Cadastrar"
 					action="#{participanteBean.cadastrar}" styleClass="btn-primary" />
 			</h:panelGrid>
+			
+			<h2 class="success">Listagem de participantes</h2>
+			
+			<p:dataTable value="#{participanteBean.participantes}" var="participante"
+				emptyMessage="Nenhum participante encontrado!" styleClass="table">
+				<p:column>
+			        <f:facet name="header">Nome: </f:facet>
+			       <h:outputText value="#{participante.nome}" />
+			   </p:column>
+			   <p:column>
+			        <f:facet name="header">Email: </f:facet>
+			        <h:outputText value="#{participante.email}" />
+			    </p:column>
+			</p:dataTable>
 		</h:form>
+		
+		
 	</ui:define>
 
 </ui:composition>

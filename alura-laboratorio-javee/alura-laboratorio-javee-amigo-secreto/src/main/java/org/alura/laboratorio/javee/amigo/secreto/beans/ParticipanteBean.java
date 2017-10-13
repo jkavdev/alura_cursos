@@ -1,5 +1,7 @@
 package org.alura.laboratorio.javee.amigo.secreto.beans;
 
+import java.util.List;
+
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
@@ -20,6 +22,10 @@ public class ParticipanteBean {
 
 	public Participante getParticipante() {
 		return participante;
+	}
+	
+	public List<Participante> getParticipantes() {
+		return dao.participantes();
 	}
 
 }

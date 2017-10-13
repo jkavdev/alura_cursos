@@ -1,5 +1,7 @@
 package org.alura.laboratorio.javee.amigo.secreto.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,10 @@ public class ParticipanteDao {
 
 	public void inserir(Participante participante) {
 		entityManager.persist(participante);
+	}
+
+	public List<Participante> participantes() {
+		return entityManager.createQuery("from Participante", Participante.class).getResultList();
 	}
 
 }
