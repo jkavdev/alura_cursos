@@ -5,7 +5,17 @@ import static br.com.caelum.tdd.exercicio1.Cargo.DESENVOLVEDOR;
 import static br.com.caelum.tdd.exercicio1.Cargo.TESTER;
 
 public class CalculadoraDeSalario {
+	
+	/**
+	 *Nao eh uma classe coesa, seu codigo sempre ira crescer devido a adicao de
+	 *funcionarios e a regra de calculo de salario 
+	 */
 
+	/**
+	 * Ter classes coesas significa ter apenas uma funcao
+	 * se a classe tem muitos comportamentos, estes podem ser transferidos para classes menores
+	 * com um unico proposito
+	 */
 
 	public double calcula(Funcionario funcionario) {
 		if(DESENVOLVEDOR.equals(funcionario.getCargo())) {
