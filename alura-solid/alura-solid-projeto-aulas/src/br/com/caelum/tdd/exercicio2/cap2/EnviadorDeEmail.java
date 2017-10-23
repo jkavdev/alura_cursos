@@ -1,7 +1,9 @@
 package br.com.caelum.tdd.exercicio2.cap2;
 
+public class EnviadorDeEmail implements AcaoAposGerarNota {
 
-public interface EnviadorDeEmail {
+	public void executa(NotaFiscal nf) {
+		System.out.println("envia email da nf " + nf.getId());
+	}
 
-	void enviaEmail(NotaFiscal nf);
 }
