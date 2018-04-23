@@ -51,3 +51,26 @@
                 <scope>test</scope>
             </dependency>
         </dependencies>   
+        
+# Executando `goals` basicos do `maven`
+
+* limpando os arquivos gerados pelo `maven`, no caso a pasta eh gerado na pasta `target`
+
+    `mvn clean`
+    
+* executando os testes da aplicacao
+
+    `mvn test`
+    
+* executando plugin de relatorio sobre o build, um arquivo `html` sera gerado no `target/site/surefire-report.html`
+
+    `mvn surefire-report:report`
+    
+* empacotando o projeto, gerando o artefato, sera gerado o artefato dentro `target/nome_do_artefato.extensao_artefato`
+
+    `mvn package`
+    
+* executando classe no artefato gerado
+
+    `java -cp produtos-maven-1.0-SNAPSHOT.jar br.com.jkavdev.alura.maven.produtos.App`    
+    
