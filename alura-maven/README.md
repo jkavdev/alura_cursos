@@ -74,3 +74,24 @@
 
     `java -cp produtos-maven-1.0-SNAPSHOT.jar br.com.jkavdev.alura.maven.produtos.App`    
     
+# Trabalhando com um projeto `maven`
+
+* ao se trabalhar com um projeto `maven` em uma `IDE`, seu comportamento padrao eh que quando haja alguma alteracao
+* no projeto, a `IDE` acionara o maven realizando seu goal basico, que seria o `mvn compile`
+
+* ao adicionarmos dependencias no projeto, `pom.xml`, atraves da `IDE`, a mesma realizara uma chamada ao `maven` para atualizar o projeto
+* ao adicionarmos dependencias, pode ser que estas de dependencias, necessitem tambem de outras dependencias, caso necessite o `maven`
+* tambem ira baixar estas para o projeto
+
+
+    <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream</artifactId>
+        <version>1.4.2</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.2.Final</version>
+    </dependency>    

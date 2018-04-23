@@ -27,6 +27,19 @@
             <!--definindo em qual fase do maven esta dependencia estara disponivel para a aplicacao-->
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+
     </dependencies>
 
 </project>
