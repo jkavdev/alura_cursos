@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!--versao do pom-->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--nome do dominio da aplicacao-->
+    <groupId>br.com.jkavdev.alura.maven.produtos</groupId>
+    <!--nome do artefato-->
+    <artifactId>produtos-maven</artifactId>
+    <!--tipo do artefato gerado-->
+    <packaging>jar</packaging>
+    <!--versao do projeto-->
+    <version>1.0-SNAPSHOT</version>
+
+    <!--dados do projeto-->
+    <name>produtos-maven</name>
+    <url>http://maven.apache.org</url>
+
+    <!--definindo as dependencias a serem usadas pela aplicacao-->
+    <dependencies>
+        <!--dados da dependencia-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <!--definindo em qual fase do maven esta dependencia estara disponivel para a aplicacao-->
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
