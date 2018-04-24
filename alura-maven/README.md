@@ -166,3 +166,23 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+* configurando o `jacoco`, plugin para analise de cobertura de testes
+* como nao definimos uma fase do `maven`, o plugin rodara em qualquer fase, `goal`
+
+	<!-- configurando plugin de cobertura de testes do jacoco -->
+	<!-- como nao definimos uma fase a ser executado, ele sera executado em todas as fases -->
+	<plugin>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>0.8.1</version>
+		<executions>
+			<execution>
+				<goals>
+					<!-- indicando os goals a serem utilizado do plugin -->
+					<goal>prepare-agent</goal>
+					<goal>report</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin> 	

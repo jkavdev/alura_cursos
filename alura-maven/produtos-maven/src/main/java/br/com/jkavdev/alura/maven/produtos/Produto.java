@@ -4,7 +4,6 @@ public class Produto {
 
     private final String nome;
     private final double preco;
-    private final double precoMercado = 1d;
 
     public Produto(String nome, double preco) {
         this.nome = nome;
@@ -16,5 +15,9 @@ public class Produto {
 	}
 	public double getPreco() {
 		return preco;
+	}
+
+	public double getPrecoComImposto() {
+		return preco * 1.1;
 	}
 }

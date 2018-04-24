@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<!--definindo em qual fase do maven esta dependencia estara disponivel 
 				para a aplicacao -->
 			<scope>test</scope>
@@ -60,6 +60,23 @@
 						<goals>
 							<!-- e qual goal a ser utilizado do plugin -->
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- configurando plugin de cobertura de testes do jacoco -->
+			<!-- como nao definimos uma fase a ser executado, ele sera executado em todas as fases -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<!-- indicando os goals a serem utilizado do plugin -->
+							<goal>prepare-agent</goal>
+							<goal>report</goal>
 						</goals>
 					</execution>
 				</executions>
