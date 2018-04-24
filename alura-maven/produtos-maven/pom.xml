@@ -1,45 +1,75 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <!--versao do pom-->
-    <modelVersion>4.0.0</modelVersion>
+	<!--versao do pom -->
+	<modelVersion>4.0.0</modelVersion>
 
-    <!--nome do dominio da aplicacao-->
-    <groupId>br.com.jkavdev.alura.maven.produtos</groupId>
-    <!--nome do artefato-->
-    <artifactId>produtos-maven</artifactId>
-    <!--tipo do artefato gerado-->
-    <packaging>jar</packaging>
-    <!--versao do projeto-->
-    <version>1.0-SNAPSHOT</version>
+	<!--nome do dominio da aplicacao -->
+	<groupId>br.com.jkavdev.alura.maven.produtos</groupId>
+	<!--nome do artefato -->
+	<artifactId>produtos-maven</artifactId>
+	<!--tipo do artefato gerado -->
+	<packaging>jar</packaging>
+	<!--versao do projeto -->
+	<version>1.0-SNAPSHOT</version>
 
-    <!--dados do projeto-->
-    <name>produtos-maven</name>
-    <url>http://maven.apache.org</url>
+	<!--dados do projeto -->
+	<name>produtos-maven</name>
+	<url>http://maven.apache.org</url>
 
-    <!--definindo as dependencias a serem usadas pela aplicacao-->
-    <dependencies>
-        <!--dados da dependencia-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <!--definindo em qual fase do maven esta dependencia estara disponivel para a aplicacao-->
-            <scope>test</scope>
-        </dependency>
+	<!--definindo as dependencias a serem usadas pela aplicacao -->
+	<dependencies>
+		<!--dados da dependencia -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<!--definindo em qual fase do maven esta dependencia estara disponivel 
+				para a aplicacao -->
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.2</version>
-        </dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.2.Final</version>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.2.Final</version>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
+
+	<!-- configurando a build do projeto -->
+	<build>
+		<plugins>
+			<!-- adicionando um plugin, no caso plugin do PMD -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.9.0</version>
+				<!-- definindo uma execucao -->
+				<executions>
+					<execution>
+						<!-- indicando que sera executado na fase verify do maven -->
+						<phase>verify</phase>
+						<goals>
+							<!-- e qual goal a ser utilizado do plugin -->
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
+
+
+
+
+
