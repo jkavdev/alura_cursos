@@ -185,4 +185,22 @@
 				</goals>
 			</execution>
 		</executions>
-	</plugin> 	
+	</plugin>
+	 	
+# Projeto `WEB`
+
+* adicionando o plugin do servidor `jetty`
+
+
+    <plugins>
+        <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.4.9.v20180320</version>
+        </plugin>
+    </plugins>	 	
+    
+* rodando o projeto com o `jetty mvn run`
+
+
+    mvn jetty:run    
