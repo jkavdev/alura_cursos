@@ -223,4 +223,39 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
              version="3.1">
-    </web-app>    
+    </web-app> 
+    
+* alterando parametros do projeto
+
+* alterando plugin do `jetty` para verificar alteracoes no projeto, e mudar o contexto da aplicacao
+* para acessar a aplicacao: `localhost:8080/blog-maven/` ou `localhost:8080/blog-maven/contatos`
+    
+    <plugins>
+        <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.4.9.v20180320</version>
+            <configuration>
+                <!-- indicando o tempo de verificacao de hot swap -->
+                <scanIntervalSeconds>10</scanIntervalSeconds>
+                <!-- alterando o contexto da aplicacao -->
+                <webApp>
+                    <contextPath>/blog-maven</contextPath>
+                </webApp>
+            </configuration>
+        </plugin>
+    </plugins>       
+    
+* configurando uma servlet, para acessar o conteudo, `localhost:8080/blog-maven/contatos`
+
+
+    @WebServlet(urlPatterns = { "/contato" })
+    public class ContatoServlet extends HttpServlet {
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            PrintWriter writer = resp.getWriter();
+            writer.println("<html><h1>Mulk, tá funcionando, hmln..........................................</h1></html>");
+            writer.close();
+        }
+    
+    }    
