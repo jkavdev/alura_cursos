@@ -10,9 +10,9 @@
 * indicar se estao as bibliotecas necessarias para a compilacao do arquivo `-cp`
 
     javac -sourcepath src\main -d target\classes\ -cp lib\xstream-1.4.9.jar src\main\Calculadora.java
-    
+
     javac -sourcepath src\test\ -d target\test\ src\test\CalculadoraTest.java
-    
+
 * estrutura do projeto
 
     lib             - lugar das bibliotecas do projeto<br />
@@ -20,21 +20,21 @@
     target/tests    - compilados do testes<br />
     src/main        - fontes da aplicacao<br />
     src/test        - fontes dos testes<br />
-    
-# Criando um projeto com `Maven`    
-    
+
+# Criando um projeto com `Maven`
+
 * criando um projeto a partir dos `archetypes` do ´maven´
 
     mvn archetype:generate -DartifactId=produtos-maven -DgroupId=br.com.jkavdev.alura.maven.produtos -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart
-    
+
 * realizando a compilacao do projeto
-    
+
     mvn compile
-    
+
 * realizando a execucao dos testes
-    
-    mvn test        
-    
+
+    mvn test
+
 * no projeto criado pelo `maven` foi gerado uma classe com um teste unitario
 * no teste eh utilizado uma bibliotecao do `JUnit`
 * o `maven` defini as dependencias da aplicacao
@@ -50,30 +50,30 @@
                 <!--definindo em qual fase do maven esta dependencia estara disponivel para a aplicacao-->
                 <scope>test</scope>
             </dependency>
-        </dependencies>   
-        
+        </dependencies>
+
 # Executando `goals` basicos do `maven`
 
 * limpando os arquivos gerados pelo `maven`, no caso a pasta eh gerado na pasta `target`
 
     mvn clean
-    
+
 * executando os testes da aplicacao
 
     mvn test
-    
+
 * executando plugin de relatorio sobre o build, um arquivo `html` sera gerado no `target/site/surefire-report.html`
 
     mvn surefire-report:report
-    
+
 * empacotando o projeto, gerando o artefato, sera gerado o artefato dentro `target/nome_do_artefato.extensao_artefato`
 
     mvn package
-    
+
 * executando classe no artefato gerado
 
-    java -cp produtos-maven-1.0-SNAPSHOT.jar br.com.jkavdev.alura.maven.produtos.App 
-    
+    java -cp produtos-maven-1.0-SNAPSHOT.jar br.com.jkavdev.alura.maven.produtos.App
+
 # Trabalhando com um projeto `maven`
 
 * ao se trabalhar com um projeto `maven` em uma `IDE`, seu comportamento padrao eh que quando haja alguma alteracao
@@ -89,19 +89,19 @@
         <artifactId>xstream</artifactId>
         <version>1.4.2</version>
     </dependency>
-    
+
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
         <version>5.2.2.Final</version>
-    </dependency>    
-    
+    </dependency>
+
 # Trabalhando com repositorio local
 
 * criando um novo projeto
 
 	mvn archetype:generate -DartifactId=blog-maven -DgroupId=br.com.jkavdev.alura.maven.blog -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart
-	
+
 * uma vez que ja realizamos uma mesma acao o `maven` nao precisa baixar mais nada para executar
 * devido da primeira vez ter baixado e nao necessitar mais na segunda vez
 
@@ -111,13 +111,13 @@
 * realizando uma `goal` do `maven` offline, deste jeito o `maven` nao ira na internet para verificar dependencias
 * tentara resolver apenas com o repositorio local
 
-	mvn -o clean package	
-    
+	mvn -o clean package
+
 # Configurando plugins no `POM`
 
 * ciclo de vida do `maven`
 
-	
+
     validate 	- validate the project is correct and all necessary information is available
     compile 		- compile the source code of the project
     test 			- test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
@@ -125,24 +125,24 @@
     verify 		- run any checks on results of integration tests to ensure quality criteria are met
     install 		- install the package into the local repository, for use as a dependency in other projects locally
     deploy 		- done in the build environment, copies the final package to the remote repository for sharing with other developers and projects.
-    
+
 * o `maven` segue os passos em sequencia para executar um `goal`, para executar o `package`
 
 	mvn valida compile test package
-	
+
 * podemos usar o `mvn verify` para realizar algumas verificacoes no nosso projeto
 
 * podemos utilizar um plugin do `maven` chamado `pmd` no qual tem muitas funcionalidades de gerar relatorio
 * gerando relatorio sobre o codigo do projeto
 
 	mvn pmd:pmd
-	
+
 * com o comando executado sera gera um arquivo html contendo a analise realizada, `\target\site\pmd.html`
 * validando a qualidade do codigo
 
 	mvn pmd:check
-	
-* configurando o plugin do `pmd` para ser rodado com o `mvn verify`			
+
+* configurando o plugin do `pmd` para ser rodado com o `mvn verify`
 
 	<!-- configurando a build do projeto -->
 	<build>
@@ -166,7 +166,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 * configurando o `jacoco`, plugin para analise de cobertura de testes
 * como nao definimos uma fase do `maven`, o plugin rodara em qualquer fase, `goal`
 
@@ -186,7 +186,7 @@
 			</execution>
 		</executions>
 	</plugin>
-	 	
+
 # Projeto `WEB`
 
 * adicionando o plugin do servidor `jetty`
@@ -198,13 +198,13 @@
             <artifactId>jetty-maven-plugin</artifactId>
             <version>9.4.9.v20180320</version>
         </plugin>
-    </plugins>	 	
-    
+    </plugins>
+
 * rodando o projeto com o `jetty mvn run`
 
 
-    mvn jetty:run    
-    
+    mvn jetty:run
+
 * adicionando api de `servlet` no projeto
 
 
@@ -223,13 +223,13 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
              version="3.1">
-    </web-app> 
-    
+    </web-app>
+
 * alterando parametros do projeto
 
 * alterando plugin do `jetty` para verificar alteracoes no projeto, e mudar o contexto da aplicacao
 * para acessar a aplicacao: `localhost:8080/blog-maven/` ou `localhost:8080/blog-maven/contatos`
-    
+
     <plugins>
         <plugin>
             <groupId>org.eclipse.jetty</groupId>
@@ -244,8 +244,8 @@
                 </webApp>
             </configuration>
         </plugin>
-    </plugins>       
-    
+    </plugins>
+
 * configurando uma servlet, para acessar o conteudo, `localhost:8080/blog-maven/contatos`
 
 
@@ -257,7 +257,7 @@
             writer.println("<html><h1>Mulk, tá funcionando, hmln..........................................</h1></html>");
             writer.close();
         }
-    
+
     }
 
 # Gerando arquivo final do Projeto
@@ -269,7 +269,7 @@
 
 # Adicionando dependencias locais
 
-* adicionando a dependencia do projeto `produtos-maven`    
+* adicionando a dependencia do projeto `produtos-maven`
 
     <dependency>
         <groupId>br.com.jkavdev.alura.maven.produtos</groupId>
@@ -280,8 +280,13 @@
 * feito isso, o maven ira buscar esta dependencia no projeto
 * nao esta dependencia nao ira no repositorio remoto, ele verificara no repositorio local
 * como esta dependencia nao esta no remoto, teremos que referencia-la localmente
-* podemos adicionar esta dependencia com o comando: 
+* podemos adicionar esta dependencia com o comando:
 
     mvn install
 
 * com este comando o `maven` adicionara o projeto `produtos-maven` no repositorio local
+
+# Cuidados ao Utilizar o `eclipse` com o `maven`
+
+* se tivermos projetos linkados por dependencia `maven`, e estiver usando o `eclipse`
+* o `eclipse` pode adicionar o projeto em si, no outro que necessita, em vez da biblioteca que esta no repositorio local ou remoto
