@@ -19,7 +19,14 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
+
+        <dependency>
+            <groupId>br.com.jkavdev.alura.maven.produtos</groupId>
+            <artifactId>produtos-maven</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>

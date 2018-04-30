@@ -1,6 +1,7 @@
 package br.com.jkavdev.alura.maven.loja;
 
 import br.com.caelum.stella.tinytype.CPF;
+import br.com.jkavdev.alura.maven.produtos.Produto;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,11 @@ public class ContatoServlet extends HttpServlet {
 
 		System.out.println(new CPF("04488289100").isValido());
 
-		PrintWriter writer = resp.getWriter();
+        Produto produto = new Produto("Bala de menta", 0.69);
+
+        System.out.println(produto.getNome() + " - " + produto.getPreco() + " - " + produto.getPrecoComImposto());
+
+        PrintWriter writer = resp.getWriter();
 		writer.println("<html><h1>Mulk, tá funcionando, hmln..........................................</h1></html>");
 		writer.close();
 	}

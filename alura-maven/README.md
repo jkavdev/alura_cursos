@@ -263,7 +263,25 @@
 # Gerando arquivo final do Projeto
 
 * para gerar o arquivo final do projeto, o o arquivo com o formato escolhido do projeto,
-* basta rodar o comando
+* basta rodar o comando, que o `maven` ira gerar o arquivo dentro `target` no projeto
 
+    mvn package
 
-    mvn 
+# Adicionando dependencias locais
+
+* adicionando a dependencia do projeto `produtos-maven`    
+
+    <dependency>
+        <groupId>br.com.jkavdev.alura.maven.produtos</groupId>
+        <artifactId>produtos-maven</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+* feito isso, o maven ira buscar esta dependencia no projeto
+* nao esta dependencia nao ira no repositorio remoto, ele verificara no repositorio local
+* como esta dependencia nao esta no remoto, teremos que referencia-la localmente
+* podemos adicionar esta dependencia com o comando: 
+
+    mvn install
+
+* com este comando o `maven` adicionara o projeto `produtos-maven` no repositorio local
