@@ -290,3 +290,96 @@
 
 * se tivermos projetos linkados por dependencia `maven`, e estiver usando o `eclipse`
 * o `eclipse` pode adicionar o projeto em si, no outro que necessita, em vez da biblioteca que esta no repositorio local ou remoto
+
+# Visualizando as dependencias geradas pelo `maven`
+
+* como temos varias dependencias e projetos que tambem que necessitam de outras dependencias
+* podemos visualizar quem depende de quem com o seguinte comando
+
+    mvn dependency:tree
+
+* com isso o `maven` gerara uma arvore contendo as dependencias
+
+    [INFO] br.com.jkavdev.alura.maven.loja:lojaweb-maven:war:1.0-SNAPSHOT
+    [INFO] +- br.com.jkavdev.alura.maven.produtos:produtos-maven:jar:1.0-SNAPSHOT:compile
+    [INFO] |  +- com.thoughtworks.xstream:xstream:jar:1.4.2:compile
+    [INFO] |  |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+    [INFO] |  |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+    [INFO] |  \- org.hibernate:hibernate-core:jar:5.2.2.Final:compile
+    [INFO] |     +- org.jboss.logging:jboss-logging:jar:3.3.0.Final:compile
+    [INFO] |     +- org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final:compile
+    [INFO] |     +- org.javassist:javassist:jar:3.20.0-GA:compile
+    [INFO] |     +- antlr:antlr:jar:2.7.7:compile
+    [INFO] |     +- org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+    [INFO] |     +- org.jboss:jandex:jar:2.0.0.Final:compile
+    [INFO] |     +- com.fasterxml:classmate:jar:1.3.0:compile
+    [INFO] |     +- dom4j:dom4j:jar:1.6.1:compile
+    [INFO] |     +- org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final:compile
+    [INFO] |     \- javax.enterprise:cdi-api:jar:1.1:compile
+    [INFO] |        +- javax.el:el-api:jar:2.2:compile
+    [INFO] |        +- org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:jar:1.0.0.Beta1:compile
+    [INFO] |        +- javax.annotation:jsr250-api:jar:1.0:compile
+    [INFO] |        \- javax.inject:javax.inject:jar:1:compile
+    [INFO] +- javax.servlet:javax.servlet-api:jar:4.0.1:provided
+    [INFO] +- br.com.caelum.stella:caelum-stella-core:jar:2.1.2:compile
+    [INFO] \- junit:junit:jar:4.11:test
+    [INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+
+# Escopos de dependencias
+
+* ao definirmos uma dependencia com escopo de `test`
+
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+    </dependency>
+
+* esta dependencia do junit nao estara disponivel no `lib` do projeto, somente para quando rodar os testes
+
+* ao definirmos uma dependencia com escopo de `provided`
+
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+
+* o `maven` nao ira adicionar esta dependencia no `lib` do projeto,
+* ela eh necessaria ao projeto, e com o `provided` indicamos que alguem ira adicionar esta dependencia
+* no caso sera o servidor que fara a inclusao da dependencia
+
+* ao definirmos uma dependencia com escopo de `runtime`
+* tomar cuidado ao utilizar com o eclipse, pois acontecera o mesmo caso com projeto dependentes
+
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.11</version>
+        <scope>runtime</scope>
+    </dependency>
+
+* temos a dependencia do mysql apenas em `runtime`, caso utilizemos o eclipse, ele adiciona
+* esta dependencia ao `classpath` do projeto, indicando que podemos utiliza-la, mas nao
+* esta disponivel apenas em tempo de execucao, gerando erro caso usemos qualquer classe do mysql, e mandemos o projeto compilar por exemplo
+
+# Exclusao de dependencias implicitas
+
+* podemos remover dependencias que nao iremos utilizar, como o caso do `xstream`, ele contem varias funcionalidades
+* nao queremos todas elas, vamos remover tudo que tiver com `xmlpull`
+
+    <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream</artifactId>
+        <version>1.4.2</version>
+        <exclusions>
+            <exclusion>
+                <groupId>xmlpull</groupId>
+                <artifactId>xmlpull</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+* agora o maven nao adicionara esta dependencia `xmlpull` no `lib` do projeto
