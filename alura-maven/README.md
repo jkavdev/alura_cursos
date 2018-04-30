@@ -23,7 +23,7 @@
     
 # Criando um projeto com `Maven`    
     
-* criando um projeto a partir dos `archetypes` do Â´mavenÂ´ 
+* criando um projeto a partir dos `archetypes` do ´maven´
 
     mvn archetype:generate -DartifactId=produtos-maven -DgroupId=br.com.jkavdev.alura.maven.produtos -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart
     
@@ -258,4 +258,12 @@
             writer.close();
         }
     
-    }    
+    }
+
+# Gerando arquivo final do Projeto
+
+* para gerar o arquivo final do projeto, o o arquivo com o formato escolhido do projeto,
+* basta rodar o comando
+
+
+    mvn 
