@@ -10,6 +10,7 @@ public class Curso {
     //deste jeito podemos ter varias implementacoes a disposicao
     private List<Aula> aulas = new ArrayList<>();
     private Set<Aluno> alunos = new HashSet<>();
+    private Map<Integer, Aluno> alunosPorMatricula = new HashMap<>();
 
     public Curso(String nome, String instrutor) {
         this.nome = nome;
@@ -42,9 +43,26 @@ public class Curso {
     }
     public void matricula(Aluno aluno) {
         this.alunos.add(aluno);
+        this.alunosPorMatricula.put(aluno.getNumeroMatricula(), aluno);
     }
     public boolean estaMatriculado(Aluno aluno) {
         return this.alunos.contains(aluno);
+    }
+    public Aluno buscaMatriculado(Integer matricula) {
+        //como temos um set, nao podemos acessar um elemento diretamente
+        //por isso temos que iterar sobre os alunos e verificar as matriculas
+        for(Aluno aluno : alunos){
+            if(aluno.getNumeroMatricula().equals(matricula)){
+                return aluno;
+            }
+        }
+        throw new NoSuchElementException("Aluno nao encontrado");
+    }
+    public Aluno buscaMatriculadoMap(Integer matricula) {
+        if(!alunosPorMatricula.containsKey(matricula)){
+            throw new NoSuchElementException("Aluno nao encontrado"); 
+        }
+        return this.alunosPorMatricula.get(matricula);
     }
 
     @Override
