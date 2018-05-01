@@ -12,10 +12,15 @@ import java.util.List;
 
 public class CursoListaTest {
 
+    Curso cCollections;
+
+    @Before
+    public void setUp() {
+        cCollections = new Curso("Dominando as Collections", "Jhonatan");
+    }
+
     @Test
     public void listaCursoReferenciaTest(){
-        Curso cCollections = new Curso("Dominando as Collections", "Jhonatan");
-
         List<Aula> aulas = cCollections.getAulasReferencia();
         System.out.println(cCollections.getAulasReferencia());
 
@@ -24,21 +29,20 @@ public class CursoListaTest {
         aulas.add(new Aula("Revisando as ArrayLists", 21));
         System.out.println(cCollections.getAulasReferencia());
         System.out.println("Objetos iguais ? : " + (cCollections.getAulasReferencia() == aulas));
+        //aqui estamos expondo a propriedade aulas, indicando como adicionar uma uma
+        //podemos encapsular esta regra em um metodo especifico
         System.out.println(cCollections.getAulasReferencia().add(new Aula("Listas de Objetos", 20)));
         System.out.println(cCollections.getAulasReferencia());
     }
 
     @Test
     public void listaCursoMelhoradoTest(){
-        Curso cCollections = new Curso("Dominando as Collections", "Jhonatan");
-
         cCollections.adicionar(new Aula("Listas de Objetos", 20));
         System.out.println(cCollections.getAulas());
     }
-    
+
     @Test(expected = UnsupportedOperationException.class)
     public void daErroAoAdicionarElementoTest(){
-        Curso cCollections = new Curso("Dominando as Collections", "Jhonatan");
         //nao podemos adicionar um elemento atraves deste objeto
         cCollections.getAulas().add(new Aula("Listas de Objetos", 20));
     }
