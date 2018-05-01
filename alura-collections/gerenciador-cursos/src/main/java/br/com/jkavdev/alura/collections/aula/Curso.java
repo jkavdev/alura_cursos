@@ -30,9 +30,11 @@ public class Curso {
     public List<Aula> getAulasReferencia() {
         return aulas;
     }
-
     public Set<Aluno> getAlunos() {
         return Collections.unmodifiableSet(alunos);
+    }
+    public Map<Integer, Aluno> getAlunosPorMatricula() {
+        return Collections.unmodifiableMap(alunosPorMatricula);
     }
 
     public void adicionar(Aula aula){
@@ -60,7 +62,7 @@ public class Curso {
     }
     public Aluno buscaMatriculadoMap(Integer matricula) {
         if(!alunosPorMatricula.containsKey(matricula)){
-            throw new NoSuchElementException("Aluno nao encontrado"); 
+            throw new NoSuchElementException("Aluno nao encontrado");
         }
         return this.alunosPorMatricula.get(matricula);
     }

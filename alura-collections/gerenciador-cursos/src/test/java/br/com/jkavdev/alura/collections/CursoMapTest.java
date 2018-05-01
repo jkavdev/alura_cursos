@@ -6,10 +6,7 @@ import br.com.jkavdev.alura.collections.aula.Curso;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class CursoMapTest {
 
@@ -71,6 +68,41 @@ public class CursoMapTest {
         curso.matricula(brenda);
 
         System.out.println("Aluno com matricula 12 : " + curso.buscaMatriculadoMap(12));
+    }
+
+    @Test
+    public void iterandoSobreMapDeAlunosTest() {
+        Aluno jhonatan = new Aluno("Jhonatan", 32154);
+        Aluno brenda = new Aluno("Brenda", 32141);
+        Aluno lucas = new Aluno("Lucas", 32124);
+
+        curso.matricula(jhonatan);
+        curso.matricula(lucas);
+        curso.matricula(brenda);
+
+        Map<Integer, Aluno> alunosPorMatricula = curso.getAlunosPorMatricula();
+        for(Integer chave : alunosPorMatricula.keySet()){
+            System.out.println("matricula : " + chave);
+        }
+    }
+
+    @Test
+    public void mapDeAlunosOrdenados() {
+        Aluno jhonatan = new Aluno("Jhonatan", 32154);
+        Aluno brenda = new Aluno("Brenda", 32141);
+        Aluno lucas = new Aluno("Lucas", 32124);
+
+        curso.matricula(jhonatan);
+        curso.matricula(lucas);
+        curso.matricula(brenda);
+
+        LinkedHashMap<Integer, Aluno> alunosOrdenados = new LinkedHashMap<>();
+        alunosOrdenados.put(jhonatan.getNumeroMatricula(), jhonatan);
+        alunosOrdenados.put(brenda.getNumeroMatricula(), brenda);
+        alunosOrdenados.put(lucas.getNumeroMatricula(), lucas);
+
+        curso.getAlunosPorMatricula().values().stream().forEach(aluno -> System.out.println(aluno));
+        alunosOrdenados.values().stream().forEach(aluno -> System.out.println(aluno));
     }
 
 }
