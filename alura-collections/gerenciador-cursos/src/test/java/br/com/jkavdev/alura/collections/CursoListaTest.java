@@ -79,5 +79,75 @@ public class CursoListaTest {
         System.out.println(cCollections);
     }
 
+    @Test
+    public void invertendoAListaDeAulas(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        System.out.println(cCollections.getAulas());
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        Collections.reverse(aulasImutaveis);
+        System.out.println(aulasImutaveis);
+    }
+
+    @Test
+    public void embaralhandoAListaDeAulas(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        cCollections.adicionar(new Aula("Revisando as ArrayLists", 21));
+        cCollections.adicionar(new Aula("Relacionamentos de listas e objetos", 19));
+        System.out.println(cCollections.getAulas());
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        Collections.shuffle(aulasImutaveis);
+        System.out.println(aulasImutaveis);
+    }
+
+    @Test
+    public void disponibilizaApenasUmaAulaDoCurso(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        cCollections.adicionar(new Aula("Revisando as ArrayLists", 21));
+        cCollections.adicionar(new Aula("Relacionamentos de listas e objetos", 19));
+        System.out.println(cCollections.getAulas());
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        //parece ter o mesmo efeito do Collections.unmodifiableList
+        Collections.singletonList(aulasImutaveis);
+        System.out.println(aulasImutaveis);
+    }
+
+    /**
+     * O método nCopies() nos retorna uma lista imutável com a quantidade escolhida de um determinado elemento.
+     * Se temos uma lista específica e precisamos obter uma outra lista imutável , contendo diversas cópias de um
+     * destes objetos, utilizamos o método nCopies(). O bom deste método é que mesmo que nós solicitemos uma lista
+     * com um número grande, como 10000 objetos, ele na verdade se referencia a apenas um, ocupando assim um pequeno espaço.
+     *
+     * Este método também é utilizado para inicializar Listas recém criadas com Null, já que ele pode rapidamente criar diversos objetos, deste modo:
+     *
+     * List<Type> list = new ArrayList<Type>(Collections.nCopies(1000, (Type)null);
+     */
+
+    @Test
+    public void criandoVariasCopiasDeAulasDoCurso(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        cCollections.adicionar(new Aula("Revisando as ArrayLists", 21));
+        cCollections.adicionar(new Aula("Relacionamentos de listas e objetos", 19));
+        System.out.println(cCollections.getAulas());
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        List<ArrayList<Aula>> copiasDasAulas = Collections.nCopies(223, aulasImutaveis);
+        copiasDasAulas.stream().forEach(copia -> System.out.println(copia));
+    }
+
+    @Test
+    public void criandoVariasCopiasDeAulasDoCursoUtilizandoParalel(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        cCollections.adicionar(new Aula("Revisando as ArrayLists", 21));
+        cCollections.adicionar(new Aula("Relacionamentos de listas e objetos", 19));
+        System.out.println(cCollections.getAulas());
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        List<ArrayList<Aula>> copiasDasAulas = Collections.nCopies(223, aulasImutaveis);
+        copiasDasAulas.stream().parallel().forEach(copia -> System.out.println(copia));
+    }
+
 
 }
