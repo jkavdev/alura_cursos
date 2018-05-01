@@ -6,10 +6,7 @@ import br.com.jkavdev.alura.collections.aula.Curso;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AlunoSetTest {
 
@@ -25,7 +22,7 @@ public class AlunoSetTest {
     }
 
     @Test
-    public void cursoComAlunosTest(){
+    public void cursoComAlunosTest() {
         Aluno jhonatan = new Aluno("Jhonatan", 32154);
         Aluno brenda = new Aluno("Brenda", 32141);
         Aluno lucas = new Aluno("Lucas", 32124);
@@ -38,7 +35,7 @@ public class AlunoSetTest {
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void criaUmSetVazioImutavel(){
+    public void criaUmSetVazioImutavel() {
         Aluno jhonatan = new Aluno("Jhonatan", 32154);
         Set<Object> alunos = Collections.emptySet();
         //cria um set vazio imutavel, no qual nao
@@ -51,14 +48,14 @@ public class AlunoSetTest {
     /**
      * Uma das características mais interessantes de JVM é que ela sabe trabalhar em paralelo. Internamente isso é feito
      * através de Threads que funcionam como pequenos processos dentro da JVM.
-     *
+     * <p>
      * O problema é que as coleções que estamos usando até agora não foram feitas para ser manipuladas em paralelo.
      * No entanto, nada impede que usemos um método da classe Collections para transformar uma coleção comum em uma
      * coleção para threads! É justamente isso que o método faz, retorna um nova coleção que pode ser compartilhada entre threads sem perigos.
      */
 
     @Test
-    public void criaUmSetThreadSafeTest(){
+    public void criaUmSetThreadSafeTest() {
         Aluno jhonatan = new Aluno("Jhonatan", 32154);
         //por padrao um set nao eh thread safe
         HashSet<Aluno> alunos = new HashSet<>();
@@ -71,7 +68,7 @@ public class AlunoSetTest {
     }
 
     @Test
-    public void verificaAlunoNoCursoTest(){
+    public void verificaAlunoNoCursoTest() {
         Aluno jhonatan = new Aluno("Jhonatan", 32154);
         curso.matricula(jhonatan);
         System.out.println("Jhonatan matriculado ? : " + curso.estaMatriculado(jhonatan));
@@ -87,6 +84,44 @@ public class AlunoSetTest {
         //sendo mais facil a busca do elemento
         System.out.println("Jhonatas hashs iguais ? : " + (jhonatan.hashCode() == jhonatan1.hashCode()));
         System.out.println("Jhonatan1 matriculado ? : " + curso.estaMatriculado(jhonatan1));
+    }
+
+    @Test
+    public void iterandoAlunosComIteratorTest() {
+        Aluno jhonatan = new Aluno("Jhonatan", 32154);
+        Aluno brenda = new Aluno("Brenda", 32141);
+        Aluno lucas = new Aluno("Lucas", 32124);
+
+        curso.matricula(jhonatan);
+        curso.matricula(lucas);
+        curso.matricula(brenda);
+
+        Iterator<Aluno> iterador = curso.getAlunos().iterator();
+        while (iterador.hasNext()) {
+            Aluno aluno = iterador.next();
+            System.out.println(aluno);
+        }
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void geraErroIterandoAlunosComIteratorTest() {
+        Aluno jhonatan = new Aluno("Jhonatan", 32154);
+        Aluno brenda = new Aluno("Brenda", 32141);
+        Aluno lucas = new Aluno("Lucas", 32124);
+
+        curso.matricula(jhonatan);
+        curso.matricula(lucas);
+        curso.matricula(brenda);
+
+        Iterator<Aluno> iterador = curso.getAlunos().iterator();
+        while (iterador.hasNext()) {
+            Aluno aluno = iterador.next();
+            System.out.println(aluno);
+        }
+
+        //como ja passamos por todos os elementos
+        //gerara erro, pois nao existe mais elementos a serem buscados
+        iterador.next();
     }
 
 }

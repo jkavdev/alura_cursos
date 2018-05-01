@@ -10,6 +10,7 @@ public class Aluno {
     public Aluno(String nome, Integer numeroMatricula) {
         //fail fast, kk
         Objects.requireNonNull(nome);
+        Objects.requireNonNull(numeroMatricula);
         this.nome = nome;
         this.numeroMatricula = numeroMatricula;
     }
