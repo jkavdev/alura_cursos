@@ -47,5 +47,37 @@ public class CursoListaTest {
         cCollections.getAulas().add(new Aula("Listas de Objetos", 20));
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void daErroAoSortearListaTest(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        //nao podemos utilizar metodo que alterem a estrutura da lista de aulas
+        Collections.sort(cCollections.getAulas());
+    }
+
+    @Test
+    public void sorteandoAsAulasListaTest(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        //para tal criaremos uma nova lista recebendo a lista de aulas
+        ArrayList<Aula> aulasImutaveis = new ArrayList<>(cCollections.getAulas());
+        //e depois ordena-las
+        Collections.sort(aulasImutaveis);
+        System.out.println(aulasImutaveis);
+    }
+
+    @Test
+    public void totalTempoDoCursoListaTest(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        System.out.println("Tempo total do curso: " + cCollections.getTempoTotal());
+    }
+
+    @Test
+    public void utilizandoToStringDoCursoListaTest(){
+        cCollections.adicionar(new Aula("Listas de Objetos", 20));
+        cCollections.adicionar(new Aula("Collections Inverted", 21));
+        System.out.println(cCollections);
+    }
+
 
 }

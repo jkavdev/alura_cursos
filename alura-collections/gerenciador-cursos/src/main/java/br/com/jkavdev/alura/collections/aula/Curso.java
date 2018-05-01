@@ -33,4 +33,15 @@ public class Curso {
     public void adicionar(Aula aula){
         this.aulas.add(aula);
     }
+    public int getTempoTotal(){
+        return this.aulas.stream().mapToInt(Aula::getTempo).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "curso='" + nome + '\'' +
+                ", tempo total='" + getTempoTotal() + '\'' +
+                '}';
+    }
 }
