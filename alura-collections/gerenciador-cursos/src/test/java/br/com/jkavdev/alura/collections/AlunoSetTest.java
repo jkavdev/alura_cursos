@@ -70,4 +70,23 @@ public class AlunoSetTest {
         System.out.println(alunosSafe);
     }
 
+    @Test
+    public void verificaAlunoNoCursoTest(){
+        Aluno jhonatan = new Aluno("Jhonatan", 32154);
+        curso.matricula(jhonatan);
+        System.out.println("Jhonatan matriculado ? : " + curso.estaMatriculado(jhonatan));
+        Aluno jhonatan1 = new Aluno("Jhonatan", 32154);
+        //opa, nao eh o mesmo o objeto
+        //mas eh um objeto com os mesmos dados, entao tinha que me retornar que sim
+        //para isso temos reescrever o metodo equals
+        System.out.println("Jhonatas iguais ? : " + jhonatan.equals(jhonatan1));
+        //uma vez que implementamos o equals, para distinguir os objetos
+        //temos que tambem reescrever o hashCode, senao o comportamento com o set
+        //nao sera o mesmo, ele nao vai saber comparar os objetos
+        //este hashcode eh usado como um identificador para a tabela de espalhamento do set
+        //sendo mais facil a busca do elemento
+        System.out.println("Jhonatas hashs iguais ? : " + (jhonatan.hashCode() == jhonatan1.hashCode()));
+        System.out.println("Jhonatan1 matriculado ? : " + curso.estaMatriculado(jhonatan1));
+    }
+
 }
