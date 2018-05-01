@@ -6,6 +6,9 @@ import java.util.Objects;
 
 public class Recibo implements Comparable<Recibo> {
 
+    public static final String HORA_DIA = "HH:mm:ss dd/MM/yyyy";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(HORA_DIA);
+
     private LocalDateTime horaRecibo;
     private Integer valor;
 
@@ -33,7 +36,7 @@ public class Recibo implements Comparable<Recibo> {
     }
 
     private String horarioFormatado() {
-        String horario = horaRecibo.format(DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy"));
+        String horario = horaRecibo.format(FORMATTER);
         String[] splited = horario.split(" ");
         return "às " + splited[0] + " de " + splited[1];
     }
