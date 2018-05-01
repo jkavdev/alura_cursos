@@ -2,10 +2,7 @@ package br.com.jkavdev.alura.collections;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AlunoSetStringTest {
 
@@ -95,7 +92,28 @@ public class AlunoSetStringTest {
         List<String> alunosList = new ArrayList<>(alunos);
         System.out.println(alunos);
         System.out.println(alunosList);
+    }
 
+    @Test
+    public void linkedHashSetTest() {
+        Set<String> alunos = new HashSet<>();
+        Set<String> alunosOrdenados = new LinkedHashSet<>();
+
+        alunos.add("Jhonatan");
+        alunos.add("Marcelo");
+        alunos.add("Maira");
+        alunos.add("Carol");
+        alunos.add("Bianca");
+        //com LinkedHashSet obtemos um conjunto ordenado, com a ordem de insercao
+        //nao eh tao performatico quanto um HashSet
+        alunosOrdenados.add("Jhonatan");
+        alunosOrdenados.add("Marcelo");
+        alunosOrdenados.add("Maira");
+        alunosOrdenados.add("Carol");
+        alunosOrdenados.add("Bianca");
+
+        System.out.println(alunos);
+        System.out.println(alunosOrdenados);
     }
 
 }
