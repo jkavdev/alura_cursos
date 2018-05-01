@@ -1,6 +1,7 @@
 package br.com.jkavdev.alura.collections;
 
 import br.com.jkavdev.alura.collections.aula.Aula;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,14 +10,21 @@ import java.util.Comparator;
 
 public class AulaListaTest {
 
+    Aula aula1;
+    Aula aula2;
+    Aula aula3;
+    ArrayList<Aula> aulas;
+
+    @Before
+    public void setUp() {
+        aula1 = new Aula("Revisando as ArrayLists", 21);
+        aula2 = new Aula("Listas de Objetos", 20);
+        aula3 = new Aula("Relacionamentos de listas e objetos", 19);
+        aulas = new ArrayList<>();
+    }
+
     @Test
     public void listaAulaTest(){
-        Aula aula1 = new Aula("Revisando as ArrayLists", 21);
-        Aula aula2 = new Aula("Listas de Objetos", 20);
-        Aula aula3 = new Aula("Relacionamentos de listas e objetos", 19);
-
-        ArrayList<Aula> aulas = new ArrayList<>();
-
         aulas.add(aula1);
         aulas.add(aula2);
         aulas.add(aula3);
@@ -28,12 +36,6 @@ public class AulaListaTest {
 
     @Test
     public void ordenandoListaAulaTest(){
-        Aula aula1 = new Aula("Revisando as ArrayLists", 21);
-        Aula aula2 = new Aula("Listas de Objetos", 20);
-        Aula aula3 = new Aula("Relacionamentos de listas e objetos", 19);
-
-        ArrayList<Aula> aulas = new ArrayList<>();
-
         aulas.add(aula1);
         aulas.add(aula2);
         aulas.add(aula3);
