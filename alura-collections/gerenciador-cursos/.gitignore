@@ -1,0 +1,9 @@
+/target/
+/.classpath
+/.project
+/.tern-project
+.idea/
+/.idea/
+/produtos-maven.iml
+/lojaweb-maven.iml
+/gerenciador-cursos.iml
