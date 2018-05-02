@@ -25,7 +25,7 @@ public class Avaliador {
 
     private void osTresMaioresLances(Leilao leilao) {
         maiores = new ArrayList<>(leilao.getLances());
-        Collections.sort(maiores, Comparator.comparing(Lance::getValor).reversed());
+        maiores.sort(Comparator.comparing(Lance::getValor).reversed());
         maiores = maiores.subList(0, maiores.size() > 3 ? 3 : maiores.size());
     }
 
