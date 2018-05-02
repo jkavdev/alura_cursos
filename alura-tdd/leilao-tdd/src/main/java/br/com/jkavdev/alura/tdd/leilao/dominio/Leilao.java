@@ -11,7 +11,7 @@ public class Leilao {
 
     public Leilao(String descricao) {
         this.descricao = descricao;
-        this.lances = new ArrayList<Lance>();
+        this.lances = new ArrayList<>();
     }
 
     public void propoe(Lance lance) {
