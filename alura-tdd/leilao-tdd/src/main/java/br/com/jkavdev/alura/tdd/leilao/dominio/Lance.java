@@ -8,6 +8,7 @@ public class Lance {
     private double valor;
 
     public Lance(Usuario usuario, double valor) {
+        if (valor <= 0) throw new IllegalArgumentException();
         this.usuario = usuario;
         this.valor = valor;
     }
@@ -20,7 +21,7 @@ public class Lance {
         return valor;
     }
 
-    public boolean isUsuariosIguais(Usuario outro){
+    public boolean isUsuariosIguais(Usuario outro) {
         return usuario.equals(outro);
     }
 
