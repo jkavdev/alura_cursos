@@ -1,5 +1,6 @@
 package br.com.jkavdev.alura.tdd.test.leilao;
 
+import br.com.jkavdev.alura.tdd.leilao.builder.CriadorDeLeilao;
 import br.com.jkavdev.alura.tdd.leilao.dominio.Lance;
 import br.com.jkavdev.alura.tdd.leilao.dominio.Leilao;
 import br.com.jkavdev.alura.tdd.leilao.dominio.Usuario;
@@ -16,15 +17,22 @@ public class AvaliadorTest {
     Usuario jhonatan;
     Usuario douglas;
     Usuario lucas;
-    Leilao leilao;
     Avaliador leiloeiro;
 
+    /**
+     * Utilizando metodos inicializadores de dados para os testes
+     * Com @Before o metodo eh executado antes do teste
+     */
+
     @Before
-    public void setUp() {
+    public void criaUsuarios() {
         jhonatan = new Usuario("Jhonatan");
         douglas = new Usuario("Douglas");
         lucas = new Usuario("Lucas");
-        leilao = new Leilao("Sorvete da Bruna");
+    }
+
+    @Before
+    public void criaAvaliador() {
         leiloeiro = new Avaliador();
     }
 
@@ -38,9 +46,10 @@ public class AvaliadorTest {
     @Test
     public void deveEntenderLanceEmOrdemCrescenteTest() {
         //1 - Pensar no cenario
-        leilao.propoe(new Lance(jhonatan, 5.6));
-        leilao.propoe(new Lance(douglas, 5.8));
-        leilao.propoe(new Lance(lucas, 5.7));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 5.6)
+                .lance(douglas, 5.8)
+                .lance(lucas, 5.7).constroi();
 
         //2 - Executar uma acao
         leiloeiro.avalia(leilao);
@@ -63,7 +72,8 @@ public class AvaliadorTest {
     @Test
     public void deveEntenderLeilaComUmLanceTest() {
         //1 - Pensar no cenario
-        leilao.propoe(new Lance(jhonatan, 5.6));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 5.6).constroi();
 
         //2 - Executar uma acao
         leiloeiro.avalia(leilao);
@@ -83,9 +93,10 @@ public class AvaliadorTest {
     @Test
     public void deveEncontrarOsTresMaioresLancesTest() {
         //1 - Pensar no cenario
-        leilao.propoe(new Lance(jhonatan, 5.6));
-        leilao.propoe(new Lance(douglas, 5.8));
-        leilao.propoe(new Lance(lucas, 5.7));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 5.6)
+                .lance(douglas, 5.8)
+                .lance(lucas, 5.7).constroi();
 
         //2 - Executar uma acao
         leiloeiro.avalia(leilao);
@@ -100,12 +111,13 @@ public class AvaliadorTest {
 
     @Test
     public void deveEntenderLeilaoComLancesEmOrdemRandomicaTest() {
-        leilao.propoe(new Lance(jhonatan, 200.0));
-        leilao.propoe(new Lance(douglas, 450.0));
-        leilao.propoe(new Lance(lucas, 120.0));
-        leilao.propoe(new Lance(jhonatan, 700.0));
-        leilao.propoe(new Lance(douglas, 630.0));
-        leilao.propoe(new Lance(lucas, 230.0));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 200.0)
+                .lance(douglas, 450.0)
+                .lance(lucas, 120.0)
+                .lance(jhonatan, 700.0)
+                .lance(douglas, 630.0)
+                .lance(lucas, 230.0).constroi();
 
         leiloeiro.avalia(leilao);
 
@@ -115,10 +127,11 @@ public class AvaliadorTest {
 
     @Test
     public void deveEntenderLeilaoComLancesEmOrdemDecrescenteTest() {
-        leilao.propoe(new Lance(jhonatan, 400.0));
-        leilao.propoe(new Lance(lucas, 300.0));
-        leilao.propoe(new Lance(douglas, 200.0));
-        leilao.propoe(new Lance(jhonatan, 100.0));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 400.0)
+                .lance(lucas, 300.0)
+                .lance(douglas, 200.0)
+                .lance(jhonatan, 100.0).constroi();
 
         leiloeiro.avalia(leilao);
 
@@ -128,8 +141,9 @@ public class AvaliadorTest {
 
     @Test
     public void deveDevolverTodosLancesCasoNaoHajaNoMinimo3() {
-        leilao.propoe(new Lance(jhonatan, 100.0));
-        leilao.propoe(new Lance(douglas, 200.0));
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna")
+                .lance(jhonatan, 100.0)
+                .lance(douglas, 200.0).constroi();
 
         leiloeiro.avalia(leilao);
 
@@ -142,6 +156,8 @@ public class AvaliadorTest {
 
     @Test
     public void deveDevolverListaVaziaCasoNaoHajaLancesTest() {
+        Leilao leilao = new CriadorDeLeilao().para("Sorvete da Bruna").constroi();
+
         leiloeiro.avalia(leilao);
 
         List<Lance> maiores = leiloeiro.getTresMaioresLances();
