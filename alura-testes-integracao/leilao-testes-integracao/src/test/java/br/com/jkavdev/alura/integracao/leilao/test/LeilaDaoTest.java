@@ -50,4 +50,22 @@ public class LeilaDaoTest {
         assertEquals(1l, total, 0.00001);
     }
 
+    @Test
+    public void deveRetornarZeroCasoNenhumAtivoTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao geladeira = new Leilao("Geladeira", 1500.0, jhonatan, false);
+        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+
+        geladeira.encerra();
+        xBox.encerra();
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(geladeira);
+        leilaoDao.salvar(xBox);
+
+        Long total = leilaoDao.total();
+        assertEquals(0, total, 0.00001);
+    }
+
 }
