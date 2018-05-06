@@ -18,5 +18,15 @@ public class Lance {
         return valor;
     }
 
+    public boolean isUsuariosIguais(Usuario outro){
+        return usuario.equals(outro);
+    }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "usuario=" + usuario +
+                ", valor=" + valor +
+                '}';
+    }
 }

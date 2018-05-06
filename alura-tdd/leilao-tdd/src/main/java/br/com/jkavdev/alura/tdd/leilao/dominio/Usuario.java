@@ -38,4 +38,11 @@ public class Usuario {
 
         return Objects.hash(getId(), getNome());
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }
