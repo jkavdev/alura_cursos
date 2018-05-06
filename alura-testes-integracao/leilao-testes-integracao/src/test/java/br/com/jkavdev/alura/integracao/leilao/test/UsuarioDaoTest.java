@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class UsuarioDaoTest {
 
@@ -22,6 +23,16 @@ public class UsuarioDaoTest {
 
         assertEquals(jhonatan.getNome(), jhonatanSalvo.getNome());
         assertEquals(jhonatan.getEmail(), jhonatanSalvo.getEmail());
+    }
+
+    @Test
+    public void semRetornoCasoNaoEncontradoTest(){
+        Session session = new CriadorDeSessao().getSession();
+        UsuarioDao usuarioDao = new UsuarioDao(session);
+
+        Usuario jhonatan = usuarioDao.porNomeEEmail("Jhonatan Kolen", "jhonatan@gmail.com");
+
+        assertNull(jhonatan);
     }
 
 }
