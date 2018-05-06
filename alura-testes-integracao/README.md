@@ -33,3 +33,38 @@
 # Testes de integracao, sao testes que verificam a comunicacao do sistema com outros sistemas,
 * no caso estamos testando a conexao com o banco de dados
 
+* para melhorar o codigo de teste, podemos utilizar as funcionalidades do `JUnit`
+
+    Session session;
+    UsuarioDao usuarioDao;
+    LeilaoDao leilaoDao;
+    @Before
+    public void antes() {
+        session = new CriadorDeSessao().getSession();
+        usuarioDao = new UsuarioDao(session);
+        leilaoDao = new LeilaoDao(session);
+        session.beginTransaction();
+    }
+    @After
+    public void depois() {
+        session.getTransaction().rollback();
+        session.close();
+    }
+
+* criaremos as dependencias utilizadas pelos testes antes de serem executados
+* e fecharemos qualqer recurso criado durante o teste depois de executa-lo
+
+* em testes que envolvam insercao no banco
+* uma boa pratica eh fazer com que seu teste nao realize as alteracoes no banco
+* garantindo uma consistencia para os outros testes, nao deixando um banco com dados sujos
+* podemos iniciar uma transacao, mas no final dos testes, realizamos um rollback
+
+    @Before
+    public void antes() {
+        session.beginTransaction();
+    }
+    @After
+    public void depois() {
+        session.close();
+    }
+
