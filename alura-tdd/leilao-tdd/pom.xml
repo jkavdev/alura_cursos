@@ -21,6 +21,13 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-all</artifactId>
+            <version>3.8.6</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

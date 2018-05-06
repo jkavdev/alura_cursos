@@ -10,9 +10,12 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class AvaliadorTest {
+public class AvaliadorComHamcrestTest {
 
     Usuario jhonatan;
     Usuario douglas;
@@ -57,8 +60,12 @@ public class AvaliadorTest {
         //3 - Validar a saida
         double maiorLance = 5.8;
         double menorLance = 5.6;
-        assertEquals(maiorLance, leiloeiro.getMaiorLance(), 0.00001);
-        assertEquals(menorLance, leiloeiro.getMenorLance(), 0.00001);
+        /**
+         * utilizando o hamcrest, podemos ter testes mais legiveis
+         * assegure que o maior lance calculado seja igual a o maior lance esperado
+         */
+        assertThat(leiloeiro.getMaiorLance(), equalTo(maiorLance));
+        assertThat(leiloeiro.getMenorLance(), equalTo(menorLance));
     }
 
     //3 - Validar a saida
@@ -91,8 +98,8 @@ public class AvaliadorTest {
         //3 - Validar a saida
         double maiorLance = 5.6;
         double menorLance = 5.6;
-        assertEquals(maiorLance, leiloeiro.getMaiorLance(), 0.00001);
-        assertEquals(menorLance, leiloeiro.getMenorLance(), 0.00001);
+        assertThat(leiloeiro.getMaiorLance(), equalTo(maiorLance));
+        assertThat(leiloeiro.getMenorLance(), equalTo(menorLance));
     }
 
     /**
@@ -114,9 +121,15 @@ public class AvaliadorTest {
         //3 - Validar a saida
         List<Lance> maiores = leiloeiro.getTresMaioresLances();
         assertEquals(3, maiores.size());
-        assertEquals(5.8, maiores.get(0).getValor(), 0.00001);
-        assertEquals(5.7, maiores.get(1).getValor(), 0.00001);
-        assertEquals(5.6, maiores.get(2).getValor(), 0.00001);
+        /**
+         * utilizando o hamcrest para validacoes de elementos dentro de uma colecao
+         * para isso o metodo equals tem que ser implementado, para eficacao da funcao
+         */
+        assertThat(maiores, hasItems(
+                new Lance((douglas), 5.8),
+                new Lance((lucas), 5.7),
+                new Lance((jhonatan), 5.6)
+        ));
     }
 
     @Test
@@ -131,8 +144,8 @@ public class AvaliadorTest {
 
         leiloeiro.avalia(leilao);
 
-        assertEquals(700.0, leiloeiro.getMaiorLance(), 0.0001);
-        assertEquals(120.0, leiloeiro.getMenorLance(), 0.0001);
+        assertThat(leiloeiro.getMaiorLance(), equalTo(700.0));
+        assertThat(leiloeiro.getMenorLance(), equalTo(120.0));
     }
 
     @Test
@@ -145,8 +158,8 @@ public class AvaliadorTest {
 
         leiloeiro.avalia(leilao);
 
-        assertEquals(400.0, leiloeiro.getMaiorLance(), 0.0001);
-        assertEquals(100.0, leiloeiro.getMenorLance(), 0.0001);
+        assertThat(leiloeiro.getMaiorLance(), equalTo(400.0));
+        assertThat(leiloeiro.getMenorLance(), equalTo(100.0));
     }
 
     @Test
@@ -162,6 +175,10 @@ public class AvaliadorTest {
         assertEquals(2, maiores.size());
         assertEquals(200, maiores.get(0).getValor(), 0.00001);
         assertEquals(100, maiores.get(1).getValor(), 0.00001);
+        assertThat(maiores, hasItems(
+                new Lance((jhonatan), 100.0),
+                new Lance((douglas), 200.0)
+        ));
     }
 
     //nao necessario devido ao teste de lance erro sem lances do leilao
