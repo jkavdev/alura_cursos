@@ -98,4 +98,12 @@ public class LeilaoTest {
         assertEquals(10, leilao.getLances().get(2).getValor(), 0.00001);
     }
 
+    @Test
+    public void naoDeveDobrarCasoNaoHajaLanceAnterior() {
+        leilao.propoe(new Lance(jhonatan, 5));
+        leilao.dobraLance(jhonatan);
+
+        assertEquals(1, leilao.getLances().size());
+    }
+
 }
