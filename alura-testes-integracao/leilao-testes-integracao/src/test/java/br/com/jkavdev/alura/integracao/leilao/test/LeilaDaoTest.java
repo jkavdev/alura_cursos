@@ -10,7 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class LeilaDaoTest {
 
@@ -66,6 +70,26 @@ public class LeilaDaoTest {
 
         Long total = leilaoDao.total();
         assertEquals(0, total, 0.00001);
+    }
+
+    @Test
+    public void deveRetornarOsUsadosTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao geladeira = new Leilao("Geladeira", 1500.0, jhonatan, true);
+        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(geladeira);
+        leilaoDao.salvar(xBox);
+        leilaoDao.salvar(nike);
+
+        List<Leilao> novos = leilaoDao.novos();
+        assertEquals(2, novos.size());
+
+        assertTrue(novos.contains(xBox));
+        assertTrue(novos.contains(nike));
     }
 
 }
