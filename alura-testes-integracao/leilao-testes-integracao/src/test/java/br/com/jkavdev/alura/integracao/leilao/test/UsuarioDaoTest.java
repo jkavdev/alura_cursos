@@ -23,6 +23,8 @@ public class UsuarioDaoTest {
 
         assertEquals(jhonatan.getNome(), jhonatanSalvo.getNome());
         assertEquals(jhonatan.getEmail(), jhonatanSalvo.getEmail());
+
+        session.close();
     }
 
     @Test
@@ -33,6 +35,8 @@ public class UsuarioDaoTest {
         Usuario jhonatan = usuarioDao.porNomeEEmail("Jhonatan Kolen", "jhonatan@gmail.com");
 
         assertNull(jhonatan);
+
+        session.close();
     }
 
 }
