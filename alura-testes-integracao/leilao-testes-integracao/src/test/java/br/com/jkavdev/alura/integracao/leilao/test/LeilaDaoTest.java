@@ -15,9 +15,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class LeilaDaoTest {
 
@@ -94,6 +92,7 @@ public class LeilaDaoTest {
         assertTrue(novos.contains(xBox));
         assertTrue(novos.contains(nike));
     }
+
     @Test
     public void deveRetornarOsAntigosTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
@@ -116,6 +115,27 @@ public class LeilaDaoTest {
 
         assertTrue(antigos.contains(xBox));
         assertTrue(antigos.contains(nike));
+    }
+
+    @Test
+    public void deveRetornarLeilaoCriadoASeteDiasTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
+
+        xBox.setDataAbertura(new GregorianCalendar(2017, 12, 2));
+        nike.setDataAbertura(new GregorianCalendar(2018, 4, 30));
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+
+        List<Leilao> antigos = leilaoDao.antigos();
+
+        assertEquals(1, antigos.size());
+
+        assertFalse(antigos.contains(nike));
     }
 
 }
