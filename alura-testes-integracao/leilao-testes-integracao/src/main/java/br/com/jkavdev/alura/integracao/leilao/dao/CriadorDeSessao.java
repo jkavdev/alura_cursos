@@ -33,6 +33,7 @@ public class CriadorDeSessao {
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
                     .setProperty("hibernate.connection.username", "sa")
                     .setProperty("hibernate.connection.password", "")
+//                    .setProperty("hibernate.hbm2ddl.auto", "update")
                     .setProperty("hibernate.show_sql", "true");
         }
         return config;
