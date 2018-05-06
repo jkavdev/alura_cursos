@@ -138,4 +138,61 @@ public class LeilaDaoTest {
         assertFalse(antigos.contains(nike));
     }
 
+    @Test
+    public void deveTrazerLeiloesNaoEncerradosNoPeriodoTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Calendar comecoDoIntervalo = Calendar.getInstance();
+        comecoDoIntervalo.add(Calendar.DAY_OF_MONTH, -10);
+        Calendar fimDoIntervalo = Calendar.getInstance();
+
+        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+        Calendar xboxData = Calendar.getInstance();
+        xboxData.add(Calendar.DAY_OF_MONTH, -2);
+        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
+        Calendar nikeData = Calendar.getInstance();
+        nikeData.add(Calendar.DAY_OF_MONTH, -20);
+
+        xBox.setDataAbertura(xboxData);
+        nike.setDataAbertura(nikeData);
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+
+        List<Leilao> leiloes = leilaoDao.porPeriodo(comecoDoIntervalo, fimDoIntervalo);
+
+        assertEquals(1, leiloes.size());
+        assertEquals("XBox", leiloes.get(0).getNome());
+    }
+
+    @Test
+    public void naoDeveTrazerLeiloesEncerradosNoPeriodoTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Calendar comecoDoIntervalo = Calendar.getInstance();
+        comecoDoIntervalo.add(Calendar.DAY_OF_MONTH, -10);
+        Calendar fimDoIntervalo = Calendar.getInstance();
+
+        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+        Calendar xboxData = Calendar.getInstance();
+        xboxData.add(Calendar.DAY_OF_MONTH, -2);
+        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
+        Calendar nikeData = Calendar.getInstance();
+        nikeData.add(Calendar.DAY_OF_MONTH, -20);
+
+        xBox.encerra();
+
+        xBox.setDataAbertura(xboxData);
+        nike.setDataAbertura(nikeData);
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+
+        List<Leilao> leiloes = leilaoDao.porPeriodo(comecoDoIntervalo, fimDoIntervalo);
+
+        assertEquals(0, leiloes.size());
+    }
+
 }
