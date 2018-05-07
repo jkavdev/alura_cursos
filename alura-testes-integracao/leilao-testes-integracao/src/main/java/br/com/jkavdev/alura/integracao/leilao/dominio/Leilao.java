@@ -1,12 +1,10 @@
 package br.com.jkavdev.alura.integracao.leilao.dominio;
 
-import java.text.DateFormat;
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity
 public class Leilao {

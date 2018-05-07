@@ -1,10 +1,12 @@
 package br.com.jkavdev.alura.integracao.leilao.builder;
 
+import br.com.jkavdev.alura.integracao.leilao.dominio.Lance;
 import br.com.jkavdev.alura.integracao.leilao.dominio.Leilao;
 import br.com.jkavdev.alura.integracao.leilao.dominio.Usuario;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class LeilaoBuilder {
 
@@ -14,6 +16,7 @@ public class LeilaoBuilder {
     private boolean usado;
     private Calendar dataAbertura;
     private boolean encerrado;
+    private List<Lance> lances;
 
     public LeilaoBuilder() {
         this.dono = new Usuario("Jhonatan", "jhonatan@gmail.com.br");
@@ -21,6 +24,7 @@ public class LeilaoBuilder {
         this.nome = "XBox";
         this.usado = false;
         this.dataAbertura = Calendar.getInstance();
+        this.lances = new ArrayList<>();
     }
 
     public LeilaoBuilder comDono(Usuario dono) {
@@ -57,9 +61,16 @@ public class LeilaoBuilder {
         return this;
     }
 
+    public LeilaoBuilder darLance(Lance lance) {
+        this.lances.add(lance);
+
+        return this;
+    }
+
     public Leilao constroi() {
         Leilao leilao = new Leilao(nome, valor, dono, usado);
         leilao.setDataAbertura(dataAbertura);
+        lances.forEach(lance1 -> leilao.adicionaLance(lance1));
         if (encerrado) leilao.encerra();
 
         return leilao;

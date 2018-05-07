@@ -1,5 +1,6 @@
 package br.com.jkavdev.alura.integracao.leilao.test;
 
+import br.com.jkavdev.alura.integracao.leilao.builder.LanceBuilder;
 import br.com.jkavdev.alura.integracao.leilao.builder.LeilaoBuilder;
 import br.com.jkavdev.alura.integracao.leilao.dao.CriadorDeSessao;
 import br.com.jkavdev.alura.integracao.leilao.dao.LeilaoDao;
@@ -11,9 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -173,6 +172,38 @@ public class LeilaDaoTest {
         List<Leilao> leiloes = leilaoDao.porPeriodo(comecoDoIntervalo, fimDoIntervalo);
 
         assertEquals(0, leiloes.size());
+    }
+
+    @Test
+    public void deveTrazerLeiloesDisputadosNoPeriodoTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+        usuarioDao.salvar(jhonatan);
+
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).comValor(1500.0)
+                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().constroi())
+                .constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).comValor(2500.0)
+                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().constroi())
+                .constroi();
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
+                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().constroi())
+                .constroi();
+
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+        leilaoDao.salvar(geladeira);
+
+//        List<Leilao> disputadosEntre = leilaoDao.disputadosEntre(2000, 3000);
+//        List<Leilao> antigos = leilaoDao.antigos();
+        leilaoDao.getValorInicialMedioDoUsuario(jhonatan);
+
+//        assertEquals(1, antigos.size());
+//        assertEquals("Nike", antigos.get(0).getNome());
     }
 
 }
