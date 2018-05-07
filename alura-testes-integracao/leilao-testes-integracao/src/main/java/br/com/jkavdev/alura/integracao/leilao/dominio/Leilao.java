@@ -1,15 +1,12 @@
 package br.com.jkavdev.alura.integracao.leilao.dominio;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Leilao {
@@ -22,6 +19,8 @@ public class Leilao {
     @ManyToOne
     private Usuario dono;
     private Calendar dataAbertura;
+    @Transient
+    private String dataFormatada;
     private boolean usado;
     private boolean encerrado;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "leilao")
@@ -29,7 +28,7 @@ public class Leilao {
 
     public Leilao() {
         this.lances = new ArrayList<>();
-        this.dataAbertura = Calendar.getInstance();
+        this.setDataAbertura(Calendar.getInstance());
     }
 
     public Leilao(String nome, Double valorInicial, Usuario dono, boolean usado) {
@@ -42,6 +41,7 @@ public class Leilao {
 
     public void setDataAbertura(Calendar dataAbertura) {
         this.dataAbertura = dataAbertura;
+        this.dataFormatada = new SimpleDateFormat("dd/MM/yyyy").format(this.dataAbertura.getTime());
     }
 
     public Calendar getDataAbertura() {

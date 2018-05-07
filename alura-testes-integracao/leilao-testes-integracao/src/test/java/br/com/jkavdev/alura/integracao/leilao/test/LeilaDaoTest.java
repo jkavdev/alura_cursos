@@ -1,5 +1,6 @@
 package br.com.jkavdev.alura.integracao.leilao.test;
 
+import br.com.jkavdev.alura.integracao.leilao.builder.LeilaoBuilder;
 import br.com.jkavdev.alura.integracao.leilao.dao.CriadorDeSessao;
 import br.com.jkavdev.alura.integracao.leilao.dao.LeilaoDao;
 import br.com.jkavdev.alura.integracao.leilao.dao.UsuarioDao;
@@ -41,9 +42,8 @@ public class LeilaDaoTest {
     @Test
     public void deveContarLeiloesNaoEncerradosTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
-
-        Leilao ativo = new Leilao("Geladeira", 1500.0, jhonatan, false);
-        Leilao inativo = new Leilao("XBox", 2500.0, jhonatan, false);
+        Leilao ativo = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).constroi();
+        Leilao inativo = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).constroi();
 
         inativo.encerra();
 
@@ -59,8 +59,8 @@ public class LeilaDaoTest {
     public void deveRetornarZeroCasoNenhumAtivoTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
 
-        Leilao geladeira = new Leilao("Geladeira", 1500.0, jhonatan, false);
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).constroi();
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).constroi();
 
         geladeira.encerra();
         xBox.encerra();
@@ -77,9 +77,9 @@ public class LeilaDaoTest {
     public void deveRetornarOsUsadosTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
 
-        Leilao geladeira = new Leilao("Geladeira", 1500.0, jhonatan, true);
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
-        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).usado().constroi();
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).constroi();
 
         usuarioDao.salvar(jhonatan);
         leilaoDao.salvar(geladeira);
@@ -97,12 +97,9 @@ public class LeilaDaoTest {
     public void deveRetornarOsAntigosTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
 
-        Leilao geladeira = new Leilao("Geladeira", 1500.0, jhonatan, true);
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
-        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
-
-        xBox.setDataAbertura(new GregorianCalendar(2017, 12, 2));
-        nike.setDataAbertura(new GregorianCalendar(2017, 11, 2));
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).usado().constroi();
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).diasAtras(60).constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).diasAtras(59).constroi();
 
         usuarioDao.salvar(jhonatan);
         leilaoDao.salvar(geladeira);
@@ -121,11 +118,8 @@ public class LeilaDaoTest {
     public void deveRetornarLeilaoCriadoASeteDiasTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
 
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
-        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
-
-        xBox.setDataAbertura(new GregorianCalendar(2017, 12, 2));
-        nike.setDataAbertura(new GregorianCalendar(2018, 4, 30));
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).diasAtras(60).constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).diasAtras(6).constroi();
 
         usuarioDao.salvar(jhonatan);
         leilaoDao.salvar(nike);
@@ -146,15 +140,8 @@ public class LeilaDaoTest {
         comecoDoIntervalo.add(Calendar.DAY_OF_MONTH, -10);
         Calendar fimDoIntervalo = Calendar.getInstance();
 
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
-        Calendar xboxData = Calendar.getInstance();
-        xboxData.add(Calendar.DAY_OF_MONTH, -2);
-        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
-        Calendar nikeData = Calendar.getInstance();
-        nikeData.add(Calendar.DAY_OF_MONTH, -20);
-
-        xBox.setDataAbertura(xboxData);
-        nike.setDataAbertura(nikeData);
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).diasAtras(1).constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).diasAtras(19).constroi();
 
         usuarioDao.salvar(jhonatan);
         leilaoDao.salvar(nike);
@@ -174,17 +161,10 @@ public class LeilaDaoTest {
         comecoDoIntervalo.add(Calendar.DAY_OF_MONTH, -10);
         Calendar fimDoIntervalo = Calendar.getInstance();
 
-        Leilao xBox = new Leilao("XBox", 2500.0, jhonatan, false);
-        Calendar xboxData = Calendar.getInstance();
-        xboxData.add(Calendar.DAY_OF_MONTH, -2);
-        Leilao nike = new Leilao("Nike", 45.0, jhonatan, false);
-        Calendar nikeData = Calendar.getInstance();
-        nikeData.add(Calendar.DAY_OF_MONTH, -20);
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).diasAtras(1).constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).diasAtras(19).constroi();
 
         xBox.encerra();
-
-        xBox.setDataAbertura(xboxData);
-        nike.setDataAbertura(nikeData);
 
         usuarioDao.salvar(jhonatan);
         leilaoDao.salvar(nike);
