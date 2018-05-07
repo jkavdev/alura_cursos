@@ -180,30 +180,29 @@ public class LeilaDaoTest {
         usuarioDao.salvar(jhonatan);
 
         Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).comValor(1500.0)
-                .darLance(new LanceBuilder().constroi())
-                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
                 .constroi();
         Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).comValor(2500.0)
-                .darLance(new LanceBuilder().constroi())
-                .darLance(new LanceBuilder().constroi())
-                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
                 .constroi();
         Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
-                .darLance(new LanceBuilder().constroi())
-                .darLance(new LanceBuilder().constroi())
-                .darLance(new LanceBuilder().constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
                 .constroi();
 
         leilaoDao.salvar(nike);
         leilaoDao.salvar(xBox);
         leilaoDao.salvar(geladeira);
 
-//        List<Leilao> disputadosEntre = leilaoDao.disputadosEntre(2000, 3000);
-//        List<Leilao> antigos = leilaoDao.antigos();
-        leilaoDao.getValorInicialMedioDoUsuario(jhonatan);
+        List<Leilao> disputadosEntre = leilaoDao.disputadosEntre(2000, 3000);
 
-//        assertEquals(1, antigos.size());
-//        assertEquals("Nike", antigos.get(0).getNome());
+        assertEquals(1, disputadosEntre.size());
+        assertEquals("Nike", disputadosEntre.get(0).getNome());
     }
 
 }
