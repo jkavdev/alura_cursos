@@ -47,4 +47,24 @@ public class UsuarioDaoTest {
         assertNull(jhonatan);
     }
 
+    @Test
+    public void deveDeletarUmUsuarioTest(){
+        Usuario jhonatan = new Usuario("Jhonatan Kolen", "jhonatan@gmail.com");
+
+        usuarioDao.salvar(jhonatan);
+        usuarioDao.deletar(jhonatan);
+
+        /**
+         * pode ser que o hibernate faca algum cache sobre estas operacoes
+         * por isso estamos obrigando-o a realizar as operacoes com o flush e clean
+         * na mesma hora
+         */
+        session.flush();
+        session.clear();
+
+        Usuario deletado = usuarioDao.porNomeEEmail(jhonatan.getNome(), jhonatan.getEmail());
+
+        assertNull(deletado);
+    }
+
 }
