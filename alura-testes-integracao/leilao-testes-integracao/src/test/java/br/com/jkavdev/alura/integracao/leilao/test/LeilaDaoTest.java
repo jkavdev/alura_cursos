@@ -350,4 +350,26 @@ public class LeilaDaoTest {
         assertEquals(2_500.0, valorInicialMedioDoJhonatan, 0.00001);
     }
 
+    @Test
+    public void deveDeletarUmLeilao() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(3000.0).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(1500.0).constroi())
+                .constroi();
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(geladeira);
+
+        leilaoDao.deleta(geladeira);
+
+        session.flush();
+        session.clear();
+
+        Leilao deletado = leilaoDao.porId(geladeira.getId());
+
+        assertNull(deletado);
+    }
+
 }
