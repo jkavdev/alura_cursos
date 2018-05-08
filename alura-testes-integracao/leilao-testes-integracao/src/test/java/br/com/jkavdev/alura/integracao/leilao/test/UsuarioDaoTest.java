@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class UsuarioDaoTest {
@@ -17,20 +18,20 @@ public class UsuarioDaoTest {
     UsuarioDao usuarioDao;
 
     @Before
-    public void antes(){
+    public void antes() {
         session = new CriadorDeSessao().getSession();
         usuarioDao = new UsuarioDao(session);
         session.beginTransaction();
     }
 
     @After
-    public void depois(){
+    public void depois() {
         session.getTransaction().rollback();
         session.close();
     }
 
     @Test
-    public void deveEncontrarPeloNomeEEmailEncontradoTest(){
+    public void deveEncontrarPeloNomeEEmailEncontradoTest() {
         Usuario jhonatan = new Usuario("Jhonatan Kolen", "jhonatan@gmail.com");
         usuarioDao.salvar(jhonatan);
 
@@ -41,14 +42,14 @@ public class UsuarioDaoTest {
     }
 
     @Test
-    public void semRetornoCasoNaoEncontradoTest(){
+    public void semRetornoCasoNaoEncontradoTest() {
         Usuario jhonatan = usuarioDao.porNomeEEmail("Jhonatan Kolen", "jhonatan@gmail.com");
 
         assertNull(jhonatan);
     }
 
     @Test
-    public void deveDeletarUmUsuarioTest(){
+    public void deveDeletarUmUsuarioTest() {
         Usuario jhonatan = new Usuario("Jhonatan Kolen", "jhonatan@gmail.com");
 
         usuarioDao.salvar(jhonatan);
@@ -68,20 +69,27 @@ public class UsuarioDaoTest {
     }
 
     @Test
-    public void deveAlterarUmUsuarioTest(){
+    public void deveAlterarUmUsuarioTest() {
         Usuario jhonatan = new Usuario("Jhonatan Kolen", "jhonatan@gmail.com");
 
         usuarioDao.salvar(jhonatan);
         Usuario buscado = usuarioDao.porNomeEEmail(jhonatan.getNome(), jhonatan.getEmail());
+        assertNotNull(buscado);
         assertEquals(jhonatan.getNome(), buscado.getNome());
         assertEquals(jhonatan.getEmail(), buscado.getEmail());
 
-        jhonatan.setEmail("jhou@gmail.com");
-        usuarioDao.atualizar(jhonatan);
+        buscado.setEmail("jhou@gmail.com");
+        usuarioDao.atualizar(buscado);
 
-        buscado = usuarioDao.porNomeEEmail(jhonatan.getNome(), jhonatan.getEmail());
-        assertEquals(jhonatan.getNome(), buscado.getNome());
-        assertEquals(jhonatan.getEmail(), buscado.getEmail());
+        session.flush();
+        session.clear();
+
+        Usuario inexistente = usuarioDao.porNomeEEmail("Jhonatan Kolen", "jhonatan@gmail.com");
+        assertNull(inexistente);
+
+        jhonatan = usuarioDao.porNomeEEmail(buscado.getNome(), buscado.getEmail());
+        assertEquals("Jhonatan Kolen", jhonatan.getNome());
+        assertEquals("jhou@gmail.com", jhonatan.getEmail());
     }
 
 }
