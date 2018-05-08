@@ -325,4 +325,29 @@ public class LeilaDaoTest {
         assertTrue(leiloesDoJhonatan.contains(xBox));
     }
 
+    @Test
+    public void devolveAMediaDoValorInicialDosLeiloesQueOUsuarioParticipouTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).comValor(1500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(800.0).constroi())
+                .constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).comValor(2500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(600.0).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(2000.0).constroi())
+                .constroi();
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).comValor(3000.0).constroi())
+                .constroi();
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+        leilaoDao.salvar(geladeira);
+
+        double valorInicialMedioDoJhonatan = leilaoDao.getValorInicialMedioDoUsuario(jhonatan);
+
+        assertEquals(2_500.0, valorInicialMedioDoJhonatan, 0.00001);
+    }
+
 }
