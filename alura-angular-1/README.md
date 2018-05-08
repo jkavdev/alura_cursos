@@ -61,3 +61,25 @@
 
 * estamos indicando que este controller pertece ao modulo raiz da aplicacao, e recebe como dependencia
 * `$scope` um objeto do angular que prove funcionalidades de ligar os dados do controller com a view
+
+# Iterando 
+
+* iterando sobre as fotos 
+
+    <div ng-repeat="foto in fotos" class="panel panel-default"></div>
+
+# Requisicoes Ajax
+
+* para realizarmos requisicoes ajax com o angular
+* precisamos de um objeto que abstrai as funcionalidades http
+
+    angular.module('alurapic').controller('FotosController', function ($scope, $http)
+
+* realizando uma requisicao get para obter as fotos do backend
+
+    $http.get('v1/fotos')
+    .success(function (fotos) {
+        $scope.fotos = fotos;
+    }).error(function (erro) {
+        console.log(erro);
+    });    
