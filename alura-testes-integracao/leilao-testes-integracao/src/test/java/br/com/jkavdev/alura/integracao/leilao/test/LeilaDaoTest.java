@@ -204,6 +204,7 @@ public class LeilaDaoTest {
         assertEquals(1, disputadosEntre.size());
         assertEquals("Nike", disputadosEntre.get(0).getNome());
     }
+
     @Test
     public void naoDeveTrazerLeiloesDisputadosNoPeriodoEncerradosTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
@@ -233,6 +234,7 @@ public class LeilaDaoTest {
 
         assertEquals(0, disputadosEntre.size());
     }
+
     @Test
     public void naoDeveTrazerLeiloesDisputadosNoPeriodoComMenosDeTresLancesTest() {
         Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
@@ -260,6 +262,67 @@ public class LeilaDaoTest {
         List<Leilao> disputadosEntre = leilaoDao.disputadosEntre(2000, 3000);
 
         assertEquals(0, disputadosEntre.size());
+    }
+
+    @Test
+    public void listaSomenteOsLeiloesDoUsuarioTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+        Usuario douglas = new Usuario("Douglas", "douglas@gmail.com");
+
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).comValor(1500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).comValor(2500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(douglas).constroi())
+                .constroi();
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .constroi();
+
+        usuarioDao.salvar(jhonatan);
+        usuarioDao.salvar(douglas);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+        leilaoDao.salvar(geladeira);
+
+        List<Leilao> leiloesDoJhonatan = leilaoDao.listaLeiloesDoUsuario(jhonatan);
+        List<Leilao> leiloesDoDouglas = leilaoDao.listaLeiloesDoUsuario(douglas);
+
+        assertEquals(3, leiloesDoJhonatan.size());
+        assertTrue(leiloesDoJhonatan.contains(nike));
+        assertTrue(leiloesDoJhonatan.contains(geladeira));
+        assertTrue(leiloesDoJhonatan.contains(xBox));
+        assertEquals(1, leiloesDoDouglas.size());
+        assertTrue(leiloesDoDouglas.contains(nike));
+    }
+
+    @Test
+    public void listaDeLeiloesDeUmUsuarioNaoTemRepeticaoTest() {
+        Usuario jhonatan = new Usuario("Jhonatan", "jhonatan@gmail.com");
+
+        Leilao xBox = new LeilaoBuilder().comNome("XBox").comDono(jhonatan).comValor(1500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .constroi();
+        Leilao nike = new LeilaoBuilder().comNome("Nike").comDono(jhonatan).comValor(2500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .constroi();
+        Leilao geladeira = new LeilaoBuilder().comNome("Geladeira").comDono(jhonatan).comValor(3500.0)
+                .darLance(new LanceBuilder().lanceDo(jhonatan).constroi())
+                .constroi();
+
+        usuarioDao.salvar(jhonatan);
+        leilaoDao.salvar(nike);
+        leilaoDao.salvar(xBox);
+        leilaoDao.salvar(geladeira);
+
+        List<Leilao> leiloesDoJhonatan = leilaoDao.listaLeiloesDoUsuario(jhonatan);
+
+        assertEquals(3, leiloesDoJhonatan.size());
+        assertTrue(leiloesDoJhonatan.contains(nike));
+        assertTrue(leiloesDoJhonatan.contains(geladeira));
+        assertTrue(leiloesDoJhonatan.contains(xBox));
     }
 
 }
