@@ -67,4 +67,21 @@ public class UsuarioDaoTest {
         assertNull(deletado);
     }
 
+    @Test
+    public void deveAlterarUmUsuarioTest(){
+        Usuario jhonatan = new Usuario("Jhonatan Kolen", "jhonatan@gmail.com");
+
+        usuarioDao.salvar(jhonatan);
+        Usuario buscado = usuarioDao.porNomeEEmail(jhonatan.getNome(), jhonatan.getEmail());
+        assertEquals(jhonatan.getNome(), buscado.getNome());
+        assertEquals(jhonatan.getEmail(), buscado.getEmail());
+
+        jhonatan.setEmail("jhou@gmail.com");
+        usuarioDao.atualizar(jhonatan);
+
+        buscado = usuarioDao.porNomeEEmail(jhonatan.getNome(), jhonatan.getEmail());
+        assertEquals(jhonatan.getNome(), buscado.getNome());
+        assertEquals(jhonatan.getEmail(), buscado.getEmail());
+    }
+
 }
