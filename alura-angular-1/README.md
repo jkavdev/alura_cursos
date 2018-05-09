@@ -113,3 +113,58 @@
     <meu-painel ng-repeat="foto in fotos" titulo="{{foto.titulo}}">
         <img src="{{foto.url}}" alt="{{foto.titulo}}" class="img-responsive center-block">
     </meu-painel>
+
+# Filter e TwoWayDataBind
+
+* adicionando modulo de animacao do angular
+
+    angular.module('alurapic', ['minhasDiretivas', 'ngAnimate']);
+
+* import de animacao do angular
+
+    <script src="js/lib/angular-animate.min.js"></script>        
+
+* criando uma linha e adicionando um campo input pra receber os dados do filtro
+* `ng-model="filtro"` realizamos o TwoWayDataBind, onde escrevemos e lemos ao mesmo tempo
+* `ng-model-options="{debounce: 500}"` defini um tempo de resposta para o model de angular responder a requisicao
+
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <input ng-model="filtro" ng-model-options="{debounce: 500}" class="form-control" placeholder="Filtrar">
+            </form>
+        </div>
+    </div>    
+
+* criando uma linha com os dados da listagem de fotos
+* podemos aplicar um filter padrao do angular `ng-repeat="foto in fotos | filter: filtro"`
+    * onde toda alteracao com `filtro` acontecera com a lista de `fotos`
+
+    <div class="row">
+        <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+            <img src="{{foto.url}}" alt="{{foto.titulo}}" class="img-responsive center-block">
+        </meu-painel>
+    </div>
+
+* queremos aplicar um estilo de fade na listagem quando for filtrado um valor    
+
+    .painel-animado.ng-leave-active {
+        -moz-transform: scale(0.1);
+        -webkit-transform: scale(0.1);
+        -ms-transform: scale(0.1);
+        -o-transform: scale(0.1);
+        transform: scale(0.1);
+    }
+    .painel-animado {
+        -moz-transition: transform 0.8s;
+        -webkit-transition: transform 0.8s;
+        -ms-transition: transform 0.8s;
+        -o-transition: transform 0.8s;
+        transition: transform 0.8s;
+    }
+
+* com o elemento definimos a classe css
+* `.ng-leave-active` indica que quando um elemento sair da lista, ele aplicara este estilo
+* precisamos apenas definir a classe css `painel-animado`
+
+    <meu-painel class="col-md-2 painel-animado">        
