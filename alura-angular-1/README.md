@@ -83,3 +83,33 @@
     }).error(function (erro) {
         console.log(erro);
     });    
+
+# Criando diretivas tag
+
+* criando uma diretiva para englobar o componente de painel
+* indicamos um nome para o modulo das diretivas
+* o nome da diretiva e uma funcao que o rege
+* para uma diretiva precisamos retornar um objeto com configuracoes da diretiva
+
+    angular.module('minhasDiretivas', [])
+        .directive('meuPainel', function () {
+            var ddo = {};
+            ddo.restric = "AE";
+            ddo.scope = {
+                titulo: '@titulo'
+            };
+            ddo.transclude = true;
+            ddo.templateUrl = 'js/directives/meu-painel.html';
+            return ddo;
+        });    
+
+* `ddo.restric = "AE"` indica - `Atribute`, `Element`, pode ser usada atributo ou elemento/tag
+* `ddo.scope = { titulo: '@titulo' }` indica os atributos da diretiva, estamos recebendo os atributos
+* `ddo.transclude = true` indica que podemos inserir elementos filhos a esta diretiva
+* `ddo.templateUrl = 'js/directives/meu-painel.html'` indica onde esta o html desta diretiva
+
+* utilizando a diretiva
+
+    <meu-painel ng-repeat="foto in fotos" titulo="{{foto.titulo}}">
+        <img src="{{foto.url}}" alt="{{foto.titulo}}" class="img-responsive center-block">
+    </meu-painel>
