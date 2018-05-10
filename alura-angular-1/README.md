@@ -167,4 +167,69 @@
 * `.ng-leave-active` indica que quando um elemento sair da lista, ele aplicara este estilo
 * precisamos apenas definir a classe css `painel-animado`
 
-    <meu-painel class="col-md-2 painel-animado">        
+    <meu-painel class="col-md-2 painel-animado">      
+
+# Adicionando NgRoute
+
+* para alterar a fota de navegacao da aplicacao, precisamos doo `ngRoute` para gerenciar as mudancas de rotas
+
+    <script src="js/lib/angular-route.min.js"></script>
+
+* agora nosso index contera apenas a indicacao da diretira do `ngRoute` e ele gerenciara as mudancas de rotas
+
+    <body>
+        <div class="container">
+            <ng-view></ng-view>
+        </div>
+    </body>
+
+* precisamos agora configurar o `ngRoute`, que eh feita no nosso module raiz
+* precisamos indicar como dependencia `'ngRoute'`
+* `$routeProvider` configura as rotas
+
+    angular.module('alurapic', ['minhasDiretivas', 'ngAnimate', 'ngRoute'])
+        .config(function ($routeProvider, $locationProvider) {
+            $locationProvider.html5Mode(true);
+            $routeProvider.when('/fotos', {
+                templateUrl: '/partials/principal.html',
+                controller: 'FotosController'
+            });
+            $routeProvider.when('/fotos/new', {
+                templateUrl: '/partials/foto.html',
+            });
+            $routeProvider.otherwise({
+                redirectTo: '/fotos'
+            });
+
+        });
+
+* configurando uma rota, `when('/fotos'` indicamos a requisicao feita
+* `templateUrl: '/partials/principal.html'`, indicamos o html desta rota
+* `controller: 'FotosController'`, indicamos o controller responsavel
+
+    $routeProvider.when('/fotos', {
+        templateUrl: '/partials/principal.html',
+        controller: 'FotosController'
+    });
+
+* caso seja digitado qualquer outra rota nao mapeada redicionar para `/fotos`
+
+    $routeProvider.otherwise({
+        redirectTo: '/fotos'
+    });    
+
+* acesso a paginas agora da aplicacao
+
+    localhost:3000/#/fotos
+    localhost:3000/#/fotos/new
+
+* podemos ainda retirar o `#/` da requisicao, contanto que o navegador e o servidor suporte `html5`
+
+    $locationProvider.html5Mode(true);
+
+    <!DOCTYPE html>
+    <html lang="pt-br" ng-app="alurapic">
+    <head>
+        <base href="/">
+    </head>
+    </html>
