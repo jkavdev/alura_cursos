@@ -60,4 +60,30 @@
 * podemos utilizar como isso como verificar para exibir a mensagem
 * devido a zero ser interpretado como false
 
-    <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>    
+    <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+# RouteParams
+
+* para editar uma foto, poderemos requisitar a pagina de cadastro passando o id da foto
+* para podemos mapear `$routeProvider.when('/fotos/edit/:fotoId'` indicando que passaremos o id da foto
+
+    $routeProvider.when('/fotos/edit/:fotoId', {
+        templateUrl: '/partials/foto.html',
+        controller: 'FotoController'
+    });    
+
+* recebendo o valor dos parametros
+* `$routeParams` contem todas as informacoes dos parametros passados
+* com podemos pesquisar pela foto no servico
+
+    angular.module('alurapic').controller('FotoController', function ($scope, $http, $routeParams) {
+    if ($routeParams.fotoId) {
+        $http.get('v1/fotos/' + $routeParams.fotoId);
+    }    
+
+* adicionando as acoes de alteracao da foto
+* `<a href="fotos/edit/{{foto._id}}"` estamos redirecionando para rota com o id da foto, para edita-la
+* `<button ng-click="remover(foto)"` acao de remover passando a foto a ser removida
+
+    <a href="fotos/edit/{{foto._id}}" class="btn btn-primary btn-block">Editar</a>
+    <button ng-click="remover(foto)" class="btn btn-danger btn-block">Remover</button>    
