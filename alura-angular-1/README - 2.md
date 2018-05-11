@@ -87,3 +87,37 @@
 
     <a href="fotos/edit/{{foto._id}}" class="btn btn-primary btn-block">Editar</a>
     <button ng-click="remover(foto)" class="btn btn-danger btn-block">Remover</button>    
+
+# Inline Components e `ng-options`    
+
+* adicionando um `select` para selecionar grupo
+* `ng-controller="GruposController"` outro `controller` ficara responsavel por este componente
+* `ng-model="foto.grupo"` indicamos aonde este valor sera setado
+* `ng-options="grupo._id` - indica o valor do `select`
+*   `as (grupo.nome | uppercase)` indicamos o valor formatado a ser exibido no `select`
+* no caso estamos indicando tambem um filtro para letras maiusculas
+*   `for grupo in grupos">` realizando a iteracao da lista de grupos
+
+    <select name="grupo" class="form-control" required ng-controller="GruposController"
+        ng-model="foto.grupo"
+        ng-options="grupo._id as (grupo.nome | uppercase) for grupo in grupos">
+        <option value="">Selecione Grupo</option>
+    </select>
+
+* criando um componente para uma acao com botao vermelho
+* teremos que passar uma funcao para este componente
+* para isso temos que definir `&` + `nomeAcao` para passar a funcao
+* como temos um componente simples nao precisamos definir um arquivo com o `html`
+
+    <meu-botao-perigo acao="remover(foto)" nome="Remover"></meu-botao-perigo>
+
+    .directive('meuBotaoPerigo', function () {
+        var ddo = {};
+        ddo.restric = "E";
+        ddo.scope = {
+            nome: '@nome',
+            acao: '&acao',
+        };
+        ddo.template = '<button ng-click="acao(foto)" class="btn btn-danger btn-block">{{nome}}</button>';
+        return ddo;
+    });    
