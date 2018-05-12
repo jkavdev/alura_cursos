@@ -61,3 +61,53 @@
         $scope.mensagem = 'Não foi possível remover a foto ' + foto.titulo + '!';
         console.log(erro);
     });        
+
+# Criando `Promises`
+
+* precisamos do objeto `$q` do angular para criarmos uma promise
+* eh um objeto que recebe dois parametros `$q(function (resolve, reject) {}`, um de retorno e outro de falha
+* `resolve` eh funcao que recebe um objeto do retorno `resolve({ mensagem: 'Foto ' + foto.titulo + ' atualizada com sucesso!', inclusao: false });`
+* `reject` eh funcao que recebe um objeto do retorno `reject('Não foi possível incluir a foto ' + foto.titulo);`
+
+    .factory('cadastroDeFotos', function ($resource, $q) {
+        var servico = {};
+        servico.cadastrar = function (foto) {
+            return $q(function (resolve, reject) {
+                if (foto._id) {
+                    recursoFoto.update({ fotoId: foto._id }, foto, function () {
+                        resolve({
+                            mensagem: 'Foto ' + foto.titulo + ' atualizada com sucesso!',
+                            inclusao: false
+                        });
+                    }, function (erro) {
+                        console.log(erro)
+                        reject('Não foi possível alterar a foto ' + foto.titulo);
+                    })
+                } else {
+                    recursoFoto.save(foto, function () {
+                        resolve({
+                            mensagem: 'Foto ' + foto.titulo + ' incluida com sucesso!',
+                            inclusao: true
+                        });
+                    }, function (erro) {
+                        console.log(erro)
+                        reject('Não foi possível incluir a foto ' + foto.titulo);
+                    });
+                };
+            });
+        };
+        return servico;
+    });
+
+* utilizando a promise criada
+
+    angular.module('alurapic').controller('FotoController', function (cadastroDeFotos) {}    
+
+    cadastroDeFotos.cadastrar($scope.foto)
+        .then(function (dados) {
+            $scope.mensagem = dados.mensagem;
+            if ($scope.inclusao) $scope.foto = {};
+        })
+        .catch(function (dados) {
+            $scope.mensagem = dados.mensagem;
+        });
