@@ -1,4 +1,4 @@
-angular.module('minhasDiretivas', [])
+angular.module('minhasDiretivas', ['meusServicos'])
     .directive('meuPainel', function () {
 
         var ddo = {};
@@ -53,9 +53,24 @@ angular.module('minhasDiretivas', [])
             //     }
             // });
 
-            scope.$on('fotoCadastrada', function(){
-                element[0].focus();    
-                console.log('evento foto cadastrada called!')            
+            scope.$on('fotoCadastrada', function () {
+                element[0].focus();
+                console.log('evento foto cadastrada called!')
+            });
+        };
+
+        return ddo;
+    })
+    .directive('meusTitulos', function () {
+        var ddo = {};
+        ddo.restric = "E";
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+
+        ddo.controller = function ($scope, recursoFoto) {
+            recursoFoto.query(function (fotos) {
+                $scope.titulos = fotos.map(function(foto){
+                    return foto.titulo;
+                });
             });
         };
 
